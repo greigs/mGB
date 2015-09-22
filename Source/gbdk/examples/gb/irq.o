@@ -1,0 +1,174 @@
+XL
+H 8 areas 89 global symbols
+M lcc51520
+S _NR13_REG Ref0000
+S _NR22_REG Ref0000
+S _NR31_REG Ref0000
+S _set_sprite_palette_entry Ref0000
+S _NR14_REG Ref0000
+S _NR23_REG Ref0000
+S _NR32_REG Ref0000
+S _NR41_REG Ref0000
+S _NR50_REG Ref0000
+S _scroll_bkg Ref0000
+S _set_sprite_prop Ref0000
+S _NR24_REG Ref0000
+S _NR33_REG Ref0000
+S _NR42_REG Ref0000
+S _NR51_REG Ref0000
+S _reset Ref0000
+S _NR34_REG Ref0000
+S _NR43_REG Ref0000
+S _NR52_REG Ref0000
+S _move_win Ref0000
+S _NR44_REG Ref0000
+S _LYC_REG Ref0000
+S _mode Ref0000
+S _strcpy Ref0000
+S _enable_interrupts Ref0000
+S __cpu Ref0000
+S _HDMA1_REG Ref0000
+S _HDMA2_REG Ref0000
+S _HDMA3_REG Ref0000
+S _waitpad Ref0000
+S _gotoxy Ref0000
+S _setchar Ref0000
+S _SCX_REG Ref0000
+S _HDMA4_REG Ref0000
+S _IE_REG Ref0000
+S _IF_REG Ref0000
+S _SCY_REG Ref0000
+S _HDMA5_REG Ref0000
+S _cpu_slow Ref0000
+S _sys_time Ref0000
+S __io_in Ref0000
+S _set_bkg_palette Ref0000
+S _get_win_tiles Ref0000
+S _move_sprite Ref0000
+S __io_out Ref0000
+S _get_sprite_data Ref0000
+S _remove_VBL Ref0000
+S _SB_REG Ref0000
+S _set_win_data Ref0000
+S _SC_REG Ref0000
+S _LCDC_REG Ref0000
+S _gets Ref0000
+S _BCPD_REG Ref0000
+S _receive_byte Ref0000
+S _remove_TIM Ref0000
+S _putchar Ref0000
+S _remove_SIO Ref0000
+S _set_win_tiles Ref0000
+S _get_data Ref0000
+S __io_status Ref0000
+S _add_LCD Ref0000
+S _set_sprite_data Ref0000
+S _scroll_win Ref0000
+S _reverse Ref0000
+S _send_byte Ref0000
+S _P1_REG Ref0000
+S _set_bkg_palette_entry Ref0000
+S _RP_REG Ref0000
+S _remove_JOY Ref0000
+S _strncat Ref0000
+S _get_tiles Ref0000
+S _LY_REG Ref0000
+S _OCPD_REG Ref0000
+S _get_sprite_tile Ref0000
+S _get_mode Ref0000
+S _BCPS_REG Ref0000
+S _cgb_compatibility Ref0000
+S _scroll_sprite Ref0000
+S _set_data Ref0000
+S _sprintf Ref0000
+S _joypad Ref0000
+S _strncmp Ref0000
+S _TIMA_REG Ref0000
+S _move_bkg Ref0000
+S _posx Ref0000
+S _set_interrupts Ref0000
+S _posy Ref0000
+S _memcpy Ref0000
+S _WX_REG Ref0000
+S _add_VBL Ref0000
+S _set_tiles Ref0000
+S _puts Ref0000
+S _WY_REG Ref0000
+S _OBP0_REG Ref0000
+S _DMA_REG Ref0000
+S _OBP1_REG Ref0000
+S _delay Ref0000
+S _waitpadup Ref0000
+S _set_sprite_tile Ref0000
+S _set_sprite_palette Ref0000
+S _display_off Ref0000
+S _strcat Ref0000
+S _OCPS_REG Ref0000
+S _add_TIM Ref0000
+S _SVBK_REG Ref0000
+S _disable_interrupts Ref0000
+S _get_bkg_tiles Ref0000
+S _printf Ref0000
+S _strncpy Ref0000
+S _TAC_REG Ref0000
+S _cpu_fast Ref0000
+S _BGP_REG Ref0000
+S _get_sprite_prop Ref0000
+S _KEY1_REG Ref0000
+S _set_bkg_data Ref0000
+S _strlen Ref0000
+S _STAT_REG Ref0000
+S _sgb_check Ref0000
+S _strcmp Ref0000
+S _wait_vbl_done Ref0000
+S _hiramcpy Ref0000
+S _NR10_REG Ref0000
+S _TMA_REG Ref0000
+S _NR11_REG Ref0000
+S _set_bkg_tiles Ref0000
+S _DIV_REG Ref0000
+S _NR12_REG Ref0000
+S _NR21_REG Ref0000
+S _NR30_REG Ref0000
+S _VBK_REG Ref0000
+S _remove_LCD Ref0000
+A _CODE size A4 flags 0
+S _main Def004D
+S _vbl Def0000
+S _tim Def0007
+S _print_counter Def000E
+A _DATA size 2 flags 0
+S _vbl_cnt Def0000
+S _tim_cnt Def0001
+A _OVERLAY size 0 flags 0
+A _ISEG size 0 flags 0
+A _BSEG size 0 flags 0
+A _XSEG size 0 flags 0
+A _GSINIT size 0 flags 0
+A _GSFINAL size 0 flags 0
+T 00 00 C5 21 00 00 34 C1 C9 C5 21 01 00 34 C1 C9
+R 00 00 00 00 00 04 01 00 00 0B 01 00
+T 0E 00 C5 CD 00 00 21 01 00 4E CD 00 00 79 F5 33
+R 00 00 00 00 02 04 69 00 00 07 01 00 02 0B 18 00
+T 1C 00 21 92 00 E5 CD 00 00 E8 03 CD 00 00 43 78
+R 00 00 00 00 00 03 00 00 02 07 6B 00 02 0C 56 00
+T 2A 00 F5 33 3E 09 F5 33 CD 00 00 E8 02 CD 00 00
+R 00 00 00 00 02 09 1E 00 02 0E 69 00
+T 38 00 21 00 00 4E CD 00 00 79 F5 33 21 9A 00 E5
+R 00 00 00 00 00 03 01 00 02 07 18 00 00 0D 00 00
+T 46 00 CD 00 00 E8 03 C1 C9 C5 CD 00 00 21 01 00
+R 00 00 00 00 02 03 6B 00 02 0B 69 00 00 0E 01 00
+T 54 00 36 00 21 00 00 36 00 01 00 00 C5 CD 00 00
+R 00 00 00 00 00 05 01 00 00 0A 00 00 02 0E 59 00
+T 62 00 E8 02 01 07 00 C5 CD 00 00 E8 02 CD 00 00
+R 00 00 00 00 00 05 00 00 02 09 67 00 02 0E 18 00
+T 70 00 3E 00 E0 00 00 3E 04 E0 00 00 3E 05 F5 33
+R 00 00 00 00 0B 05 7A 00 0B 0A 6D 00
+T 7C 00 CD 00 00 E8 01 CD 0E 00 21 E8 03 E5 CD
+R 00 00 00 00 02 03 55 00 00 08 00 00
+T 89 00 00 00 E8 02 C3 81 00 C1 C9
+R 00 00 00 00 02 02 60 00 00 07 00 00
+T 92 00 20 54 49 4D 20 25 75 00 2D 20 56 42 4C 20
+R 00 00 00 00
+T A0 00 25 75 0A 00
+R 00 00 00 00

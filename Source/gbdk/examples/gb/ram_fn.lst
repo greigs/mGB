@@ -1,0 +1,588 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : FreeWare ANSI-C Compiler
+                              3 ; Version 2.2.1 Sat Oct 18 11:39:24 2014
+                              4 
+                              5 ;--------------------------------------------------------
+                              6 	.module lcc96360
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _main
+                             12 	.globl _print_counter
+                             13 	.globl _inc
+                             14 	.globl _strncpy
+                             15 	.globl _strncmp
+                             16 	.globl _strncat
+                             17 	.globl _strlen
+                             18 	.globl _strcat
+                             19 	.globl _reverse
+                             20 	.globl _memcpy
+                             21 	.globl _strcmp
+                             22 	.globl _strcpy
+                             23 	.globl _gets
+                             24 	.globl _puts
+                             25 	.globl _sprintf
+                             26 	.globl _printf
+                             27 	.globl _putchar
+                             28 	.globl _get_tiles
+                             29 	.globl _set_tiles
+                             30 	.globl _get_data
+                             31 	.globl _set_data
+                             32 	.globl _scroll_sprite
+                             33 	.globl _move_sprite
+                             34 	.globl _get_sprite_prop
+                             35 	.globl _set_sprite_prop
+                             36 	.globl _get_sprite_tile
+                             37 	.globl _set_sprite_tile
+                             38 	.globl _get_sprite_data
+                             39 	.globl _set_sprite_data
+                             40 	.globl _scroll_win
+                             41 	.globl _move_win
+                             42 	.globl _get_win_tiles
+                             43 	.globl _set_win_tiles
+                             44 	.globl _set_win_data
+                             45 	.globl _scroll_bkg
+                             46 	.globl _move_bkg
+                             47 	.globl _get_bkg_tiles
+                             48 	.globl _set_bkg_tiles
+                             49 	.globl _set_bkg_data
+                             50 	.globl _hiramcpy
+                             51 	.globl _display_off
+                             52 	.globl _wait_vbl_done
+                             53 	.globl _reset
+                             54 	.globl _set_interrupts
+                             55 	.globl _disable_interrupts
+                             56 	.globl _enable_interrupts
+                             57 	.globl _waitpadup
+                             58 	.globl _waitpad
+                             59 	.globl _joypad
+                             60 	.globl _delay
+                             61 	.globl _receive_byte
+                             62 	.globl _send_byte
+                             63 	.globl _get_mode
+                             64 	.globl _mode
+                             65 	.globl _add_TIM
+                             66 	.globl _add_LCD
+                             67 	.globl _add_VBL
+                             68 	.globl _remove_JOY
+                             69 	.globl _remove_SIO
+                             70 	.globl _remove_TIM
+                             71 	.globl _remove_LCD
+                             72 	.globl _remove_VBL
+                             73 	.globl _cgb_compatibility
+                             74 	.globl _cpu_fast
+                             75 	.globl _cpu_slow
+                             76 	.globl _set_sprite_palette_entry
+                             77 	.globl _set_bkg_palette_entry
+                             78 	.globl _set_sprite_palette
+                             79 	.globl _set_bkg_palette
+                             80 	.globl _sgb_check
+                             81 	.globl _counter
+                             82 ;--------------------------------------------------------
+                             83 ; Externals used
+                             84 ;--------------------------------------------------------
+                             85 	.globl _IE_REG
+                             86 	.globl _SVBK_REG
+                             87 	.globl _OCPD_REG
+                             88 	.globl _OCPS_REG
+                             89 	.globl _BCPD_REG
+                             90 	.globl _BCPS_REG
+                             91 	.globl _RP_REG
+                             92 	.globl _HDMA5_REG
+                             93 	.globl _HDMA4_REG
+                             94 	.globl _HDMA3_REG
+                             95 	.globl _HDMA2_REG
+                             96 	.globl _HDMA1_REG
+                             97 	.globl _VBK_REG
+                             98 	.globl _KEY1_REG
+                             99 	.globl _WX_REG
+                            100 	.globl _WY_REG
+                            101 	.globl _OBP1_REG
+                            102 	.globl _OBP0_REG
+                            103 	.globl _BGP_REG
+                            104 	.globl _DMA_REG
+                            105 	.globl _LYC_REG
+                            106 	.globl _LY_REG
+                            107 	.globl _SCX_REG
+                            108 	.globl _SCY_REG
+                            109 	.globl _STAT_REG
+                            110 	.globl _LCDC_REG
+                            111 	.globl _NR52_REG
+                            112 	.globl _NR51_REG
+                            113 	.globl _NR50_REG
+                            114 	.globl _NR44_REG
+                            115 	.globl _NR43_REG
+                            116 	.globl _NR42_REG
+                            117 	.globl _NR41_REG
+                            118 	.globl _NR34_REG
+                            119 	.globl _NR33_REG
+                            120 	.globl _NR32_REG
+                            121 	.globl _NR31_REG
+                            122 	.globl _NR30_REG
+                            123 	.globl _NR24_REG
+                            124 	.globl _NR23_REG
+                            125 	.globl _NR22_REG
+                            126 	.globl _NR21_REG
+                            127 	.globl _NR14_REG
+                            128 	.globl _NR13_REG
+                            129 	.globl _NR12_REG
+                            130 	.globl _NR11_REG
+                            131 	.globl _NR10_REG
+                            132 	.globl _IF_REG
+                            133 	.globl _TAC_REG
+                            134 	.globl _TMA_REG
+                            135 	.globl _TIMA_REG
+                            136 	.globl _DIV_REG
+                            137 	.globl _SC_REG
+                            138 	.globl _SB_REG
+                            139 	.globl _P1_REG
+                            140 	.globl __io_out
+                            141 	.globl __io_in
+                            142 	.globl __io_status
+                            143 	.globl _sys_time
+                            144 	.globl __cpu
+                            145 ;--------------------------------------------------------
+                            146 ; special function registers
+                            147 ;--------------------------------------------------------
+                            148 ;--------------------------------------------------------
+                            149 ; special function bits 
+                            150 ;--------------------------------------------------------
+                            151 ;--------------------------------------------------------
+                            152 ; internal ram data
+                            153 ;--------------------------------------------------------
+                            154 	.area _DATA
+   0000                     155 _counter::
+   0000                     156 	.ds 2
+                            157 ;--------------------------------------------------------
+                            158 ; overlayable items in internal ram 
+                            159 ;--------------------------------------------------------
+                            160 	.area _OVERLAY
+                            161 ;--------------------------------------------------------
+                            162 ; indirectly addressable internal ram data
+                            163 ;--------------------------------------------------------
+                            164 	.area _ISEG
+                            165 ;--------------------------------------------------------
+                            166 ; bit data
+                            167 ;--------------------------------------------------------
+                            168 	.area _BSEG
+                            169 ;--------------------------------------------------------
+                            170 ; external ram data
+                            171 ;--------------------------------------------------------
+                            172 	.area _XSEG
+                            173 ;--------------------------------------------------------
+                            174 ; global & static initialisations
+                            175 ;--------------------------------------------------------
+                            176 	.area _GSINIT
+                            177 	.area _GSFINAL
+                            178 	.area _GSINIT
+                            179 ;--------------------------------------------------------
+                            180 ; code
+                            181 ;--------------------------------------------------------
+                            182 	.area _CODE
+                            183 ;	ram_fn.c 7
+                            184 ; genLabel
+                            185 ; genFunction
+                            186 ;	---------------------------------
+                            187 ; Function inc
+                            188 ; ---------------------------------
+   0000                     189 ___inc_start:
+   0000                     190 _inc:
+   0000 C5                  191 	push	bc
+                            192 ;	ram_fn.c 9
+                            193 ; genPlus
+                            194 ; AOP_HL for _counter
+                            195 ; genPlusIncr
+   0001 21 00 00            196 	ld	hl,#_counter + 0
+   0004 34                  197 	inc	(hl)
+   0005 20 04               198 	jr	nz,00103$
+   0007 21 01 00            199 	ld	hl,#_counter + 1
+   000A 34                  200 	inc	(hl)
+   000B                     201 00103$:
+                            202 ; genLabel
+   000B                     203 00101$:
+                            204 ; genEndFunction
+   000B C1                  205 	pop	bc
+   000C C9                  206 	ret
+   000D                     207 ___inc_end:
+                            208 ;	ram_fn.c 12
+                            209 ; genLabel
+                            210 ; genFunction
+                            211 ;	---------------------------------
+                            212 ; Function print_counter
+                            213 ; ---------------------------------
+   000D                     214 ___print_counter_start:
+   000D                     215 _print_counter:
+   000D C5                  216 	push	bc
+                            217 ;	ram_fn.c 14
+                            218 ; genIpush
+                            219 ; AOP_HL for _counter
+   000E 21 00 00            220 	ld	hl,#_counter + 0
+   0011 2A                  221 	ld	a,(hl+)
+   0012 66                  222 	ld	h,(hl)
+   0013 6F                  223 	ld	l,a
+   0014 E5                  224 	push	hl
+                            225 ; genIpush
+   0015 21 BC 00            226 	ld	hl,#__str_0 + 0
+   0018 E5                  227 	push	hl
+                            228 ; genCall
+   0019 CD 00 00            229 	call	_printf
+   001C E8 04               230 	lda	sp,4(sp)
+                            231 ; genLabel
+   001E                     232 00101$:
+                            233 ; genEndFunction
+   001E C1                  234 	pop	bc
+   001F C9                  235 	ret
+   0020                     236 ___print_counter_end:
+                            237 ;	ram_fn.c 17
+                            238 ; genLabel
+                            239 ; genFunction
+                            240 ;	---------------------------------
+                            241 ; Function main
+                            242 ; ---------------------------------
+   0020                     243 ___main_start:
+   0020                     244 _main:
+   0020 C5                  245 	push	bc
+   0021 E8 FF               246 	lda sp,-1(sp)
+                            247 ;	ram_fn.c 27
+                            248 ; genIpush
+   0023 21 CC 00            249 	ld	hl,#__str_1 + 0
+   0026 E5                  250 	push	hl
+                            251 ; genCall
+   0027 CD 00 00            252 	call	_puts
+   002A E8 02               253 	lda	sp,2(sp)
+                            254 ;	ram_fn.c 28
+                            255 ; genAssign
+                            256 ; AOP_HL for _counter
+   002C 21 00 00            257 	ld	hl,#_counter + 0
+   002F 36 00               258 	ld	(hl),#0x00
+   0031 21 01 00            259 	ld	hl,#_counter + 1
+   0034 36 00               260 	ld	(hl),#0x00
+                            261 ;	ram_fn.c 30
+                            262 ; genMinus
+   0036 3E 0D               263 	ld	a,#<___inc_end
+   0038 D6 00               264 	sub	a,#<___inc_start
+   003A 4F                  265 	ld	c,a
+   003B 3E 00               266 	ld	a,#>___inc_end
+   003D DE 00               267 	sbc	a,#>___inc_start
+   003F 47                  268 	ld	b,a
+                            269 ; genCast
+                            270 ; AOP_STK for _main_sloc0_1_0
+   0040 F8 00               271 	lda	hl,0(sp)
+   0042 71                  272 	ld	(hl),c ; 3
+                            273 ; genIpush
+                            274 ; AOP_STK for _main_sloc0_1_0
+   0043 7E                  275 	ld	a,(hl)
+   0044 F5                  276 	push	af
+   0045 33                  277 	inc	sp
+                            278 ; genIpush
+   0046 21 00 00            279 	ld	hl,#___inc_start + 0
+   0049 E5                  280 	push	hl
+                            281 ; genIpush
+   004A 3E A0               282 	ld	a,#0xA0
+   004C F5                  283 	push	af
+   004D 33                  284 	inc	sp
+                            285 ; genCall
+   004E CD 00 00            286 	call	_hiramcpy
+   0051 E8 04               287 	lda	sp,4(sp)
+                            288 ;	ram_fn.c 32
+                            289 ; genIpush
+   0053 C5                  290 	push	bc
+                            291 ; genIpush
+   0054 21 00 00            292 	ld	hl,#___inc_start + 0
+   0057 E5                  293 	push	hl
+                            294 ; genIpush
+   0058 21 00 D0            295 	ld	hl,#0xD000
+   005B E5                  296 	push	hl
+                            297 ; genCall
+   005C CD 00 00            298 	call	_memcpy
+   005F E8 06               299 	lda	sp,6(sp)
+                            300 ;	ram_fn.c 34
+                            301 ; genCall
+   0061 CD 0D 00            302 	call	_print_counter
+                            303 ;	ram_fn.c 37
+                            304 ; genIpush
+   0064 21 DD 00            305 	ld	hl,#__str_2 + 0
+   0067 E5                  306 	push	hl
+                            307 ; genCall
+   0068 CD 00 00            308 	call	_puts
+   006B E8 02               309 	lda	sp,2(sp)
+                            310 ;	ram_fn.c 38
+                            311 ; genCall
+   006D CD 00 00            312 	call	_inc
+                            313 ;	ram_fn.c 39
+                            314 ; genCall
+   0070 CD 0D 00            315 	call	_print_counter
+                            316 ;	ram_fn.c 42
+                            317 ; genIpush
+   0073 21 E6 00            318 	ld	hl,#__str_3 + 0
+   0076 E5                  319 	push	hl
+                            320 ; genCall
+   0077 CD 00 00            321 	call	_puts
+   007A E8 02               322 	lda	sp,2(sp)
+                            323 ;	ram_fn.c 43
+                            324 ; genCall
+   007C CD 00 00            325 	call	_inc_ram
+                            326 ;	ram_fn.c 44
+                            327 ; genCall
+   007F CD 0D 00            328 	call	_print_counter
+                            329 ;	ram_fn.c 47
+                            330 ; genIpush
+   0082 21 F6 00            331 	ld	hl,#__str_4 + 0
+   0085 E5                  332 	push	hl
+                            333 ; genCall
+   0086 CD 00 00            334 	call	_puts
+   0089 E8 02               335 	lda	sp,2(sp)
+                            336 ;	ram_fn.c 48
+                            337 ; genPcall
+                            338 ; Special case where the pCall is to a constant
+   008B CD 00 D0            339 	call	0xD000
+                            340 ;	ram_fn.c 49
+                            341 ; genCall
+   008E CD 0D 00            342 	call	_print_counter
+                            343 ;	ram_fn.c 52
+                            344 ; genIpush
+   0091 21 08 01            345 	ld	hl,#__str_5 + 0
+   0094 E5                  346 	push	hl
+                            347 ; genCall
+   0095 CD 00 00            348 	call	_puts
+   0098 E8 02               349 	lda	sp,2(sp)
+                            350 ;	ram_fn.c 53
+                            351 ; genCall
+   009A CD 00 00            352 	call	_inc_hiram
+                            353 ;	ram_fn.c 54
+                            354 ; genCall
+   009D CD 0D 00            355 	call	_print_counter
+                            356 ;	ram_fn.c 57
+                            357 ; genIpush
+   00A0 21 1A 01            358 	ld	hl,#__str_6 + 0
+   00A3 E5                  359 	push	hl
+                            360 ; genCall
+   00A4 CD 00 00            361 	call	_puts
+   00A7 E8 02               362 	lda	sp,2(sp)
+                            363 ;	ram_fn.c 58
+                            364 ; genPcall
+                            365 ; Special case where the pCall is to a constant
+   00A9 CD A0 FF            366 	call	0xFFA0
+                            367 ;	ram_fn.c 59
+                            368 ; genCall
+   00AC CD 0D 00            369 	call	_print_counter
+                            370 ;	ram_fn.c 61
+                            371 ; genIpush
+   00AF 21 2E 01            372 	ld	hl,#__str_7 + 0
+   00B2 E5                  373 	push	hl
+                            374 ; genCall
+   00B3 CD 00 00            375 	call	_puts
+   00B6 E8 02               376 	lda	sp,2(sp)
+                            377 ; genLabel
+   00B8                     378 00101$:
+                            379 ; genEndFunction
+   00B8 E8 01               380 	lda	sp,1(sp)
+   00BA C1                  381 	pop bc
+   00BB C9                  382 	ret
+   00BC                     383 ___main_end:
+                            384 	.area _CODE
+   00BC                     385 __str_0:
+   00BC 20 43 6F 75 6E 74   386 	.ascii " Counter is %u"
+        65 72 20 69 73 20
+        25 75
+   00CA 0A                  387 	.db 10
+   00CB 00                  388 	.db 0
+   00CC                     389 __str_1:
+   00CC 50 72 6F 67 72 61   390 	.ascii "Program Start..."
+        6D 20 53 74 61 72
+        74 2E 2E 2E
+   00DC 00                  391 	.db 0
+   00DD                     392 __str_2:
+   00DD 43 61 6C 6C 20 52   393 	.ascii "Call ROM"
+        4F 4D
+   00E5 00                  394 	.db 0
+   00E6                     395 __str_3:
+   00E6 43 61 6C 6C 20 52   396 	.ascii "Call RAM direct"
+        41 4D 20 64 69 72
+        65 63 74
+   00F5 00                  397 	.db 0
+   00F6                     398 __str_4:
+   00F6 43 61 6C 6C 20 52   399 	.ascii "Call RAM indirect"
+        41 4D 20 69 6E 64
+        69 72 65 63 74
+   0107 00                  400 	.db 0
+   0108                     401 __str_5:
+   0108 43 61 6C 6C 20 48   402 	.ascii "Call HIRAM direct"
+        49 52 41 4D 20 64
+        69 72 65 63 74
+   0119 00                  403 	.db 0
+   011A                     404 __str_6:
+   011A 43 61 6C 6C 20 48   405 	.ascii "Call HIRAM indirect"
+        49 52 41 4D 20 69
+        6E 64 69 72 65 63
+        74
+   012D 00                  406 	.db 0
+   012E                     407 __str_7:
+   012E 54 68 65 20 45 6E   408 	.ascii "The End..."
+        64 2E 2E 2E
+   0138 00                  409 	.db 0
+ASxxxx Assembler V01.75  (GameBoy Z80-like CPU), page 1.
+
+Symbol Table
+
+    _BCPD_REG                          **** GX
+    _BCPS_REG                          **** GX
+    _BGP_REG                           **** GX
+    _DIV_REG                           **** GX
+    _DMA_REG                           **** GX
+    _HDMA1_REG                         **** GX
+    _HDMA2_REG                         **** GX
+    _HDMA3_REG                         **** GX
+    _HDMA4_REG                         **** GX
+    _HDMA5_REG                         **** GX
+    _IE_REG                            **** GX
+    _IF_REG                            **** GX
+    _KEY1_REG                          **** GX
+    _LCDC_REG                          **** GX
+    _LYC_REG                           **** GX
+    _LY_REG                            **** GX
+    _NR10_REG                          **** GX
+    _NR11_REG                          **** GX
+    _NR12_REG                          **** GX
+    _NR13_REG                          **** GX
+    _NR14_REG                          **** GX
+    _NR21_REG                          **** GX
+    _NR22_REG                          **** GX
+    _NR23_REG                          **** GX
+    _NR24_REG                          **** GX
+    _NR30_REG                          **** GX
+    _NR31_REG                          **** GX
+    _NR32_REG                          **** GX
+    _NR33_REG                          **** GX
+    _NR34_REG                          **** GX
+    _NR41_REG                          **** GX
+    _NR42_REG                          **** GX
+    _NR43_REG                          **** GX
+    _NR44_REG                          **** GX
+    _NR50_REG                          **** GX
+    _NR51_REG                          **** GX
+    _NR52_REG                          **** GX
+    _OBP0_REG                          **** GX
+    _OBP1_REG                          **** GX
+    _OCPD_REG                          **** GX
+    _OCPS_REG                          **** GX
+    _P1_REG                            **** GX
+    _RP_REG                            **** GX
+    _SB_REG                            **** GX
+    _SCX_REG                           **** GX
+    _SCY_REG                           **** GX
+    _SC_REG                            **** GX
+    _STAT_REG                          **** GX
+    _SVBK_REG                          **** GX
+    _TAC_REG                           **** GX
+    _TIMA_REG                          **** GX
+    _TMA_REG                           **** GX
+    _VBK_REG                           **** GX
+    _WX_REG                            **** GX
+    _WY_REG                            **** GX
+  0 ___inc_end                         000D R
+  0 ___inc_start                       0000 R
+  0 ___main_end                        00BC R
+  0 ___main_start                      0020 R
+  0 ___print_counter_end               0020 R
+  0 ___print_counter_start             000D R
+    __cpu                              **** GX
+    __io_in                            **** GX
+    __io_out                           **** GX
+    __io_status                        **** GX
+  0 __str_0                            00BC R
+  0 __str_1                            00CC R
+  0 __str_2                            00DD R
+  0 __str_3                            00E6 R
+  0 __str_4                            00F6 R
+  0 __str_5                            0108 R
+  0 __str_6                            011A R
+  0 __str_7                            012E R
+    _add_LCD                           **** GX
+    _add_TIM                           **** GX
+    _add_VBL                           **** GX
+    _cgb_compatibility                 **** GX
+  1 _counter                           0000 GR
+    _cpu_fast                          **** GX
+    _cpu_slow                          **** GX
+    _delay                             **** GX
+    _disable_interrupts                **** GX
+    _display_off                       **** GX
+    _enable_interrupts                 **** GX
+    _get_bkg_tiles                     **** GX
+    _get_data                          **** GX
+    _get_mode                          **** GX
+    _get_sprite_data                   **** GX
+    _get_sprite_prop                   **** GX
+    _get_sprite_tile                   **** GX
+    _get_tiles                         **** GX
+    _get_win_tiles                     **** GX
+    _gets                              **** GX
+    _hiramcpy                          **** GX
+  0 _inc                               0000 GR
+    _inc_hiram                         **** GX
+    _inc_ram                           **** GX
+    _joypad                            **** GX
+  0 _main                              0020 GR
+    _memcpy                            **** GX
+    _mode                              **** GX
+    _move_bkg                          **** GX
+    _move_sprite                       **** GX
+    _move_win                          **** GX
+  0 _print_counter                     000D GR
+    _printf                            **** GX
+    _putchar                           **** GX
+    _puts                              **** GX
+    _receive_byte                      **** GX
+    _remove_JOY                        **** GX
+    _remove_LCD                        **** GX
+    _remove_SIO                        **** GX
+    _remove_TIM                        **** GX
+    _remove_VBL                        **** GX
+    _reset                             **** GX
+    _reverse                           **** GX
+    _scroll_bkg                        **** GX
+    _scroll_sprite                     **** GX
+    _scroll_win                        **** GX
+    _send_byte                         **** GX
+    _set_bkg_data                      **** GX
+    _set_bkg_palette                   **** GX
+    _set_bkg_palette_entry             **** GX
+    _set_bkg_tiles                     **** GX
+    _set_data                          **** GX
+    _set_interrupts                    **** GX
+    _set_sprite_data                   **** GX
+    _set_sprite_palette                **** GX
+    _set_sprite_palette_entry          **** GX
+    _set_sprite_prop                   **** GX
+    _set_sprite_tile                   **** GX
+    _set_tiles                         **** GX
+    _set_win_data                      **** GX
+    _set_win_tiles                     **** GX
+    _sgb_check                         **** GX
+    _sprintf                           **** GX
+    _strcat                            **** GX
+    _strcmp                            **** GX
+    _strcpy                            **** GX
+    _strlen                            **** GX
+    _strncat                           **** GX
+    _strncmp                           **** GX
+    _strncpy                           **** GX
+    _sys_time                          **** GX
+    _wait_vbl_done                     **** GX
+    _waitpad                           **** GX
+    _waitpadup                         **** GX
+
+ASxxxx Assembler V01.75  (GameBoy Z80-like CPU), page 2.
+
+Area Table
+
+   0 _CODE                              size  139   flags 0
+   1 _DATA                              size    2   flags 0
+   2 _OVERLAY                           size    0   flags 0
+   3 _ISEG                              size    0   flags 0
+   4 _BSEG                              size    0   flags 0
+   5 _XSEG                              size    0   flags 0
+   6 _GSINIT                            size    0   flags 0
+   7 _GSFINAL                           size    0   flags 0

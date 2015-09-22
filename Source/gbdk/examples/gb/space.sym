@@ -1,0 +1,104 @@
+; no$gmb format .sym file
+; Generated automagically by ASxxxx linker V01.75 (SDK 3.0.0)
+; Area: .  .ABS.
+00:0000 s__HEADER
+00:0000 .init
+00:0200 s__CODE
+00:09CA s__HOME
+00:09CA s__LIT
+00:17A6 s__GSINITTAIL
+00:17A6 s__GSINIT
+00:17A7 s__GSFINAL
+00:C000 .OAM
+00:C0A0 s__DATA
+00:C0A0 s__BSS
+00:C115 s__HEAP
+00:E000 .STACK
+00:FF80 .refresh_OAM
+; Area: _CODE
+00:0200 .set_mode
+00:0210 .remove_VBL
+00:0216 .remove_LCD
+00:021C .remove_TIM
+00:0222 .remove_SIO
+00:0228 .remove_JOY
+00:022E .add_VBL
+00:0234 .add_LCD
+00:023A .add_TIM
+00:0240 .add_SIO
+00:0246 .add_JOY
+00:024C .remove_int
+00:026C .add_int
+00:0288 .wait_vbl_done
+00:0288 _wait_vbl_done
+00:0299 _display_off
+00:0299 .display_off
+00:02BA .serial_IO
+00:02E9 _mode
+00:02F2 _get_mode
+00:02F7 _enable_interrupts
+00:02F9 _disable_interrupts
+00:02FB _reset
+00:02FB .reset
+00:0301 _set_interrupts
+00:030C _remove_VBL
+00:0317 _remove_LCD
+00:0322 _remove_TIM
+00:032D _remove_SIO
+00:0338 _remove_JOY
+00:0343 _add_VBL
+00:034E _add_LCD
+00:0359 _add_TIM
+00:0364 _add_SIO
+00:036F _add_JOY
+00:037A _clock
+00:0383 __printTStates
+00:0384 _main
+00:086D .mv_sprite
+00:087C _move_sprite
+00:0889 .set_xy_wtt
+00:089A .set_xy_btt
+00:08A9 .set_xy_tt
+00:08DA _set_tiles
+00:08F3 .init_vram
+00:0901 .init_wtt
+00:0911 .init_btt
+00:091F .init_tt
+00:0925 .padup
+00:0925 _waitpadup
+00:0935 .jpad
+00:0962 .wait_pad
+00:0969 _joypad
+00:096E _waitpad
+00:0978 .set_sprite_prop
+00:0985 _set_sprite_prop
+00:0990 .set_sprite_tile
+00:099D _set_sprite_tile
+00:09A8 .copy_vram
+00:09B7 _get_data
+00:09B7 _set_data
+; Area: _HEADER
+00:01D1 _exit
+; Area: _HOME
+; Area: _LIT
+; Area: _GSINIT
+00:17A6 gsinit
+; Area: _GSINITTAIL
+; Area: _GSFINAL
+; Area: _DATA
+; Area: _BSS
+00:C0A0 __cpu
+00:C0A1 .mode
+00:C0A2 __io_out
+00:C0A3 __io_in
+00:C0A4 __io_status
+00:C0A5 .vbl_done
+00:C0A6 _sys_time
+00:C0A6 .sys_time
+00:C0A8 .int_0x40
+00:C0B8 .int_0x48
+00:C0C8 .int_0x50
+00:C0D8 .int_0x58
+00:C0E8 .int_0x60
+; Area: _HEAP
+00:C115 _malloc_heap_start

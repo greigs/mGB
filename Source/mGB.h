@@ -9,7 +9,6 @@ UBYTE addressByte;
 UBYTE valueByte;
 UBYTE captureDataType;
 UBYTE capturedAddress;
-UBYTE midiDataReadPosition;
 UBYTE updateDisplaySynthCounter;
 
 void asmMain();

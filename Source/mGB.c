@@ -1,5 +1,5 @@
-#include <gb/gb.h>
-#include <mGB.h>
+#include "gb/gb.h"
+#include "mGB.h"
 
 void printbyte(UBYTE v1, UBYTE v2, UBYTE v3)
 {
@@ -20,11 +20,11 @@ void printbyte(UBYTE v1, UBYTE v2, UBYTE v3)
 	set_bkg_tiles(1,16,10,1,bkg);
 }
 
-#include <mGBSynthPitchFunctions.c>
-#include <mGBSynthCommonFunctions.c>
-#include <mGBDisplayFunctions.c>
-#include <mGBMemoryFunctions.c>
-#include <mGBUserFunctions.c>
+#include "mGBSynthPitchFunctions.c"
+#include "mGBSynthCommonFunctions.c"
+#include "mGBDisplayFunctions.c"
+#include "mGBMemoryFunctions.c"
+#include "mGBUserFunctions.c"
 
 void setSoundDefaults()
 {

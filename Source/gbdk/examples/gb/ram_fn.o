@@ -1,0 +1,192 @@
+XL
+H 8 areas 85 global symbols
+M lcc96360
+S _NR13_REG Ref0000
+S _NR22_REG Ref0000
+S _NR31_REG Ref0000
+S _set_sprite_palette_entry Ref0000
+S _NR14_REG Ref0000
+S _NR23_REG Ref0000
+S _NR32_REG Ref0000
+S _NR41_REG Ref0000
+S _NR50_REG Ref0000
+S _scroll_bkg Ref0000
+S _set_sprite_prop Ref0000
+S _NR24_REG Ref0000
+S _NR33_REG Ref0000
+S _NR42_REG Ref0000
+S _NR51_REG Ref0000
+S _reset Ref0000
+S _NR34_REG Ref0000
+S _NR43_REG Ref0000
+S _NR52_REG Ref0000
+S _move_win Ref0000
+S _NR44_REG Ref0000
+S _LYC_REG Ref0000
+S _mode Ref0000
+S _strcpy Ref0000
+S _enable_interrupts Ref0000
+S __cpu Ref0000
+S _HDMA1_REG Ref0000
+S _HDMA2_REG Ref0000
+S _inc_hiram Ref0000
+S _HDMA3_REG Ref0000
+S _waitpad Ref0000
+S _SCX_REG Ref0000
+S _HDMA4_REG Ref0000
+S _IE_REG Ref0000
+S _IF_REG Ref0000
+S _SCY_REG Ref0000
+S _HDMA5_REG Ref0000
+S _cpu_slow Ref0000
+S _sys_time Ref0000
+S __io_in Ref0000
+S _set_bkg_palette Ref0000
+S _get_win_tiles Ref0000
+S _move_sprite Ref0000
+S __io_out Ref0000
+S _get_sprite_data Ref0000
+S _remove_VBL Ref0000
+S _SB_REG Ref0000
+S _set_win_data Ref0000
+S _SC_REG Ref0000
+S _LCDC_REG Ref0000
+S _gets Ref0000
+S _BCPD_REG Ref0000
+S _receive_byte Ref0000
+S _remove_TIM Ref0000
+S _putchar Ref0000
+S _remove_SIO Ref0000
+S _set_win_tiles Ref0000
+S _get_data Ref0000
+S __io_status Ref0000
+S _add_LCD Ref0000
+S _set_sprite_data Ref0000
+S _scroll_win Ref0000
+S _reverse Ref0000
+S _send_byte Ref0000
+S _P1_REG Ref0000
+S _set_bkg_palette_entry Ref0000
+S _RP_REG Ref0000
+S _remove_JOY Ref0000
+S _strncat Ref0000
+S _get_tiles Ref0000
+S _LY_REG Ref0000
+S _OCPD_REG Ref0000
+S _get_sprite_tile Ref0000
+S _get_mode Ref0000
+S _BCPS_REG Ref0000
+S _cgb_compatibility Ref0000
+S _scroll_sprite Ref0000
+S _set_data Ref0000
+S _sprintf Ref0000
+S _joypad Ref0000
+S _strncmp Ref0000
+S _TIMA_REG Ref0000
+S _move_bkg Ref0000
+S _set_interrupts Ref0000
+S _memcpy Ref0000
+S _WX_REG Ref0000
+S _add_VBL Ref0000
+S _set_tiles Ref0000
+S _puts Ref0000
+S _WY_REG Ref0000
+S _OBP0_REG Ref0000
+S _DMA_REG Ref0000
+S _OBP1_REG Ref0000
+S _delay Ref0000
+S _waitpadup Ref0000
+S _set_sprite_tile Ref0000
+S _set_sprite_palette Ref0000
+S _display_off Ref0000
+S _strcat Ref0000
+S _OCPS_REG Ref0000
+S _add_TIM Ref0000
+S _SVBK_REG Ref0000
+S _disable_interrupts Ref0000
+S _get_bkg_tiles Ref0000
+S _printf Ref0000
+S _strncpy Ref0000
+S _TAC_REG Ref0000
+S _cpu_fast Ref0000
+S _BGP_REG Ref0000
+S _get_sprite_prop Ref0000
+S _KEY1_REG Ref0000
+S _set_bkg_data Ref0000
+S _strlen Ref0000
+S _inc_ram Ref0000
+S _STAT_REG Ref0000
+S _sgb_check Ref0000
+S _strcmp Ref0000
+S _wait_vbl_done Ref0000
+S _hiramcpy Ref0000
+S _NR10_REG Ref0000
+S _TMA_REG Ref0000
+S _NR11_REG Ref0000
+S _set_bkg_tiles Ref0000
+S _DIV_REG Ref0000
+S _NR12_REG Ref0000
+S _NR21_REG Ref0000
+S _NR30_REG Ref0000
+S _VBK_REG Ref0000
+S _remove_LCD Ref0000
+A _CODE size 139 flags 0
+S _main Def0020
+S _inc Def0000
+S _print_counter Def000D
+A _DATA size 2 flags 0
+S _counter Def0000
+A _OVERLAY size 0 flags 0
+A _ISEG size 0 flags 0
+A _BSEG size 0 flags 0
+A _XSEG size 0 flags 0
+A _GSINIT size 0 flags 0
+A _GSFINAL size 0 flags 0
+T 00 00 C5 21 00 00 34 20 04 21 01 00 34 C1 C9 C5
+R 00 00 00 00 00 04 01 00 00 0A 01 00
+T 0E 00 21 00 00 2A 66 6F E5 21 BC 00 E5 CD 00 00
+R 00 00 00 00 00 03 01 00 00 0A 00 00 02 0E 68 00
+T 1C 00 E8 04 C1 C9 C5 E8 FF 21 CC 00 E5 CD 00 00
+R 00 00 00 00 00 0A 00 00 02 0E 58 00
+T 2A 00 E8 02 21 00 00 36 00 21 01 00 36 00 3E
+R 00 00 00 00 00 05 01 00 00 0A 01 00
+T 37 00 0D 00 D6 00 00 4F 3E 0D 00 DE
+R 00 00 00 00 09 02 00 00 09 05 00 00 89 09 00 00
+T 3E 00 00 00 47 F8 00 71 7E F5 33 21 00 00 E5 3E
+R 00 00 00 00 89 02 00 00 00 0C 00 00
+T 4B 00 A0 F5 33 CD 00 00 E8 04 C5 21 00 00 E5 21
+R 00 00 00 00 02 06 76 00 00 0C 00 00
+T 59 00 00 D0 E5 CD 00 00 E8 06 CD 0D 00 21 DD 00
+R 00 00 00 00 02 06 54 00 00 0B 00 00 00 0E 00 00
+T 67 00 E5 CD 00 00 E8 02 CD 00 00 CD 0D 00 21
+R 00 00 00 00 02 04 58 00 00 09 00 00 00 0C 00 00
+T 74 00 E6 00 E5 CD 00 00 E8 02 CD 00 00 CD
+R 00 00 00 00 00 02 00 00 02 06 58 00 02 0B 71 00
+T 80 00 0D 00 21 F6 00 E5 CD 00 00 E8 02 CD 00 D0
+R 00 00 00 00 00 02 00 00 00 05 00 00 02 09 58 00
+T 8E 00 CD 0D 00 21 08 01 E5 CD 00 00 E8 02 CD
+R 00 00 00 00 00 03 00 00 00 06 00 00 02 0A 58 00
+T 9B 00 00 00 CD 0D 00 21 1A 01 E5 CD
+R 00 00 00 00 02 02 1C 00 00 05 00 00 00 08 00 00
+T A5 00 00 00 E8 02 CD A0 FF CD 0D 00 21 2E 01 E5
+R 00 00 00 00 02 02 58 00 00 0A 00 00 00 0D 00 00
+T B3 00 CD 00 00 E8 02 E8 01 C1 C9
+R 00 00 00 00 02 03 58 00
+T BC 00 20 43 6F 75 6E 74 65 72 20 69 73 20 25 75
+R 00 00 00 00
+T CA 00 0A 00 50 72 6F 67 72 61 6D 20 53 74 61 72
+R 00 00 00 00
+T D8 00 74 2E 2E 2E 00 43 61 6C 6C 20 52 4F 4D 00
+R 00 00 00 00
+T E6 00 43 61 6C 6C 20 52 41 4D 20 64 69 72 65 63
+R 00 00 00 00
+T F4 00 74 00 43 61 6C 6C 20 52 41 4D 20 69 6E 64
+R 00 00 00 00
+T 02 01 69 72 65 63 74 00 43 61 6C 6C 20 48 49 52
+R 00 00 00 00
+T 10 01 41 4D 20 64 69 72 65 63 74 00 43 61 6C 6C
+R 00 00 00 00
+T 1E 01 20 48 49 52 41 4D 20 69 6E 64 69 72 65 63
+R 00 00 00 00
+T 2C 01 74 00 54 68 65 20 45 6E 64 2E 2E 2E 00
+R 00 00 00 00

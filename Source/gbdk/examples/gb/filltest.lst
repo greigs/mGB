@@ -1,0 +1,924 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : FreeWare ANSI-C Compiler
+                              3 ; Version 2.2.1 Sat Oct 18 11:39:24 2014
+                              4 
+                              5 ;--------------------------------------------------------
+                              6 	.module lcc86240
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _main
+                             12 	.globl _color
+                             13 	.globl _gotogxy
+                             14 	.globl _wrtchr
+                             15 	.globl _getpix
+                             16 	.globl _circle
+                             17 	.globl _box
+                             18 	.globl _line
+                             19 	.globl _draw_image
+                             20 	.globl _switch_data
+                             21 	.globl _plot_point
+                             22 	.globl _plot
+                             23 	.globl _gprintf
+                             24 	.globl _gprintn
+                             25 	.globl _gprintln
+                             26 	.globl _gprint
+                             27 	.globl _get_tiles
+                             28 	.globl _set_tiles
+                             29 	.globl _get_data
+                             30 	.globl _set_data
+                             31 	.globl _scroll_sprite
+                             32 	.globl _move_sprite
+                             33 	.globl _get_sprite_prop
+                             34 	.globl _set_sprite_prop
+                             35 	.globl _get_sprite_tile
+                             36 	.globl _set_sprite_tile
+                             37 	.globl _get_sprite_data
+                             38 	.globl _set_sprite_data
+                             39 	.globl _scroll_win
+                             40 	.globl _move_win
+                             41 	.globl _get_win_tiles
+                             42 	.globl _set_win_tiles
+                             43 	.globl _set_win_data
+                             44 	.globl _scroll_bkg
+                             45 	.globl _move_bkg
+                             46 	.globl _get_bkg_tiles
+                             47 	.globl _set_bkg_tiles
+                             48 	.globl _set_bkg_data
+                             49 	.globl _hiramcpy
+                             50 	.globl _display_off
+                             51 	.globl _wait_vbl_done
+                             52 	.globl _reset
+                             53 	.globl _set_interrupts
+                             54 	.globl _disable_interrupts
+                             55 	.globl _enable_interrupts
+                             56 	.globl _waitpadup
+                             57 	.globl _waitpad
+                             58 	.globl _joypad
+                             59 	.globl _delay
+                             60 	.globl _receive_byte
+                             61 	.globl _send_byte
+                             62 	.globl _get_mode
+                             63 	.globl _mode
+                             64 	.globl _add_TIM
+                             65 	.globl _add_LCD
+                             66 	.globl _add_VBL
+                             67 	.globl _remove_JOY
+                             68 	.globl _remove_SIO
+                             69 	.globl _remove_TIM
+                             70 	.globl _remove_LCD
+                             71 	.globl _remove_VBL
+                             72 	.globl _cgb_compatibility
+                             73 	.globl _cpu_fast
+                             74 	.globl _cpu_slow
+                             75 	.globl _set_sprite_palette_entry
+                             76 	.globl _set_bkg_palette_entry
+                             77 	.globl _set_sprite_palette
+                             78 	.globl _set_bkg_palette
+                             79 	.globl _sgb_check
+                             80 ;--------------------------------------------------------
+                             81 ; Externals used
+                             82 ;--------------------------------------------------------
+                             83 	.globl _IE_REG
+                             84 	.globl _SVBK_REG
+                             85 	.globl _OCPD_REG
+                             86 	.globl _OCPS_REG
+                             87 	.globl _BCPD_REG
+                             88 	.globl _BCPS_REG
+                             89 	.globl _RP_REG
+                             90 	.globl _HDMA5_REG
+                             91 	.globl _HDMA4_REG
+                             92 	.globl _HDMA3_REG
+                             93 	.globl _HDMA2_REG
+                             94 	.globl _HDMA1_REG
+                             95 	.globl _VBK_REG
+                             96 	.globl _KEY1_REG
+                             97 	.globl _WX_REG
+                             98 	.globl _WY_REG
+                             99 	.globl _OBP1_REG
+                            100 	.globl _OBP0_REG
+                            101 	.globl _BGP_REG
+                            102 	.globl _DMA_REG
+                            103 	.globl _LYC_REG
+                            104 	.globl _LY_REG
+                            105 	.globl _SCX_REG
+                            106 	.globl _SCY_REG
+                            107 	.globl _STAT_REG
+                            108 	.globl _LCDC_REG
+                            109 	.globl _NR52_REG
+                            110 	.globl _NR51_REG
+                            111 	.globl _NR50_REG
+                            112 	.globl _NR44_REG
+                            113 	.globl _NR43_REG
+                            114 	.globl _NR42_REG
+                            115 	.globl _NR41_REG
+                            116 	.globl _NR34_REG
+                            117 	.globl _NR33_REG
+                            118 	.globl _NR32_REG
+                            119 	.globl _NR31_REG
+                            120 	.globl _NR30_REG
+                            121 	.globl _NR24_REG
+                            122 	.globl _NR23_REG
+                            123 	.globl _NR22_REG
+                            124 	.globl _NR21_REG
+                            125 	.globl _NR14_REG
+                            126 	.globl _NR13_REG
+                            127 	.globl _NR12_REG
+                            128 	.globl _NR11_REG
+                            129 	.globl _NR10_REG
+                            130 	.globl _IF_REG
+                            131 	.globl _TAC_REG
+                            132 	.globl _TMA_REG
+                            133 	.globl _TIMA_REG
+                            134 	.globl _DIV_REG
+                            135 	.globl _SC_REG
+                            136 	.globl _SB_REG
+                            137 	.globl _P1_REG
+                            138 	.globl __io_out
+                            139 	.globl __io_in
+                            140 	.globl __io_status
+                            141 	.globl _sys_time
+                            142 	.globl __cpu
+                            143 ;--------------------------------------------------------
+                            144 ; special function registers
+                            145 ;--------------------------------------------------------
+                            146 ;--------------------------------------------------------
+                            147 ; special function bits 
+                            148 ;--------------------------------------------------------
+                            149 ;--------------------------------------------------------
+                            150 ; internal ram data
+                            151 ;--------------------------------------------------------
+                            152 	.area _DATA
+                            153 ;--------------------------------------------------------
+                            154 ; overlayable items in internal ram 
+                            155 ;--------------------------------------------------------
+                            156 	.area _OVERLAY
+                            157 ;--------------------------------------------------------
+                            158 ; indirectly addressable internal ram data
+                            159 ;--------------------------------------------------------
+                            160 	.area _ISEG
+                            161 ;--------------------------------------------------------
+                            162 ; bit data
+                            163 ;--------------------------------------------------------
+                            164 	.area _BSEG
+                            165 ;--------------------------------------------------------
+                            166 ; external ram data
+                            167 ;--------------------------------------------------------
+                            168 	.area _XSEG
+                            169 ;--------------------------------------------------------
+                            170 ; global & static initialisations
+                            171 ;--------------------------------------------------------
+                            172 	.area _GSINIT
+                            173 	.area _GSFINAL
+                            174 	.area _GSINIT
+                            175 ;--------------------------------------------------------
+                            176 ; code
+                            177 ;--------------------------------------------------------
+                            178 	.area _CODE
+                            179 ;	filltest.c 7
+                            180 ; genLabel
+                            181 ; genFunction
+                            182 ;	---------------------------------
+                            183 ; Function main
+                            184 ; ---------------------------------
+   0000                     185 ___main_start:
+   0000                     186 _main:
+   0000 C5                  187 	push	bc
+   0001 E8 F8               188 	lda sp,-8(sp)
+                            189 ;	filltest.c 10
+                            190 ; genAssign
+                            191 ; AOP_STK for _main_c_1_1
+   0003 F8 05               192 	lda	hl,5(sp)
+   0005 36 00               193 	ld	(hl),#0x00 ; 3
+                            194 ;	filltest.c 12
+                            195 ; genAssign
+                            196 ; AOP_STK for _main_a_1_1
+   0007 23                  197 	inc	hl
+   0008 23                  198 	inc	hl
+   0009 36 00               199 	ld	(hl),#0x00 ; 3
+                            200 ; genLabel
+   000B                     201 00107$:
+                            202 ; genCmpGt
+                            203 ; AOP_STK for _main_a_1_1
+   000B AF                  204 	xor	a,a
+   000C 3E 0F               205 	ld	a,#0x0F
+   000E F8 07               206 	lda	hl,7(sp)
+   0010 9E                  207 	sbc	a,(hl) ; 2
+   0011 DA 9C 00            208 	jp	c,00110$
+                            209 ;	filltest.c 13
+                            210 ; genAssign
+                            211 ; AOP_STK for _main_b_1_1
+   0014 2B                  212 	dec	hl
+   0015 36 00               213 	ld	(hl),#0x00 ; 3
+                            214 ; genRightShift
+                            215 ; AOP_STK for _main_a_1_1
+                            216 ; AOP_STK for _main_d_1_1
+                            217 ; shift right 	result 1, left 1
+   0017 23                  218 	inc	hl
+   0018 7E                  219 	ld	a,(hl)
+   0019 CB 3F               220 	srl	a
+   001B CB 3F               221 	srl	a
+   001D F8 04               222 	lda	hl,4(sp)
+   001F 77                  223 	ld	(hl),a ; 3
+                            224 ; genLabel
+   0020                     225 00103$:
+                            226 ; genCmpGt
+                            227 ; AOP_STK for _main_b_1_1
+                            228 ; AOP_STK for _main_sloc0_1_0
+   0020 AF                  229 	xor	a,a
+   0021 3E 0F               230 	ld	a,#0x0F
+   0023 F8 06               231 	lda	hl,6(sp)
+   0025 9E                  232 	sbc	a,(hl) ; 2
+   0026 3E 00               233 	ld	a,#0x00
+   0028 17                  234 	rla
+   0029 F8 02               235 	lda	hl,2(sp)
+   002B 77                  236 	ld	(hl),a ; 3
+                            237 ; genIfx
+                            238 ; AOP_STK for _main_sloc0_1_0
+                            239 ; Removed redundent or a,a
+   002C AF                  240 	xor	a,a
+   002D B6                  241 	or	a,(hl)
+   002E C2 96 00            242 	jp	nz,00109$
+                            243 ;	filltest.c 14
+                            244 ; genIpush
+                            245 ; AOP_STK for _main_a_1_1
+   0031 F8 07               246 	lda	hl,7(sp)
+   0033 7E                  247 	ld	a,(hl)
+   0034 F5                  248 	push	af
+   0035 33                  249 	inc	sp
+                            250 ; genIpush
+                            251 ; AOP_STK for _main_b_1_1
+   0036 2B                  252 	dec	hl
+   0037 7E                  253 	ld	a,(hl)
+   0038 F5                  254 	push	af
+   0039 33                  255 	inc	sp
+                            256 ; genCall
+   003A CD 00 00            257 	call	_gotogxy
+   003D E8 02               258 	lda	sp,2(sp)
+                            259 ;	filltest.c 15
+                            260 ; genAssign
+                            261 ; AOP_STK for _main_d_1_1
+                            262 ; (registers are the same)
+                            263 ;	filltest.c 16
+                            264 ; genRightShift
+                            265 ; AOP_STK for _main_b_1_1
+                            266 ; AOP_STK for _main_e_1_1
+                            267 ; shift right 	result 1, left 1
+   003F F8 06               268 	lda	hl,6(sp)
+   0041 7E                  269 	ld	a,(hl)
+   0042 CB 3F               270 	srl	a
+   0044 CB 3F               271 	srl	a
+   0046 F8 03               272 	lda	hl,3(sp)
+   0048 77                  273 	ld	(hl),a ; 3
+                            274 ; genAssign
+                            275 ; AOP_STK for _main_e_1_1
+                            276 ; (registers are the same)
+                            277 ;	filltest.c 17
+                            278 ; genCmpEq
+                            279 ; AOP_STK for _main_d_1_1
+                            280 ; AOP_STK for _main_e_1_1
+                            281 ; AOP_STK for _main_sloc1_1_0
+   0049 2A                  282 	ld	a,(hl+)
+   004A BE                  283 	cp	(hl) ; 5
+   004B 20 04               284 	jr	nz,00136$
+   004D 3E 01               285 	ld	a,#0x01
+   004F 18 01               286 	jr	00137$
+   0051                     287 00136$:
+   0051 AF                  288 	xor	a,a
+   0052                     289 00137$:
+   0052 F8 01               290 	lda	hl,1(sp)
+   0054 77                  291 	ld	(hl),a ; 3
+                            292 ; genIfx
+                            293 ; AOP_STK for _main_sloc1_1_0
+                            294 ; Removed redundent or a,a
+   0055 AF                  295 	xor	a,a
+   0056 B6                  296 	or	a,(hl)
+   0057 CA 61 00            297 	jp	z,00102$
+                            298 ;	filltest.c 18
+                            299 ; genMinus
+                            300 ; AOP_STK for _main_e_1_1
+                            301 ; AOP_STK for _main_d_1_1
+   005A 3E 03               302 	ld	a,#0x03
+   005C 23                  303 	inc	hl
+   005D 23                  304 	inc	hl
+   005E 96                  305 	sub	a,(hl)
+   005F 23                  306 	inc	hl
+   0060 77                  307 	ld	(hl),a ; 3
+                            308 ; genAssign
+                            309 ; AOP_STK for _main_d_1_1
+                            310 ; (registers are the same)
+                            311 ; genLabel
+   0061                     312 00102$:
+                            313 ;	filltest.c 20
+                            314 ; genIpush
+   0061 3E 00               315 	ld	a,#0x00
+   0063 F5                  316 	push	af
+   0064 33                  317 	inc	sp
+                            318 ; genIpush
+                            319 ; AOP_STK for _main_e_1_1
+   0065 F8 04               320 	lda	hl,4(sp)
+   0067 7E                  321 	ld	a,(hl)
+   0068 F5                  322 	push	af
+   0069 33                  323 	inc	sp
+                            324 ; genIpush
+                            325 ; AOP_STK for _main_d_1_1
+   006A 23                  326 	inc	hl
+   006B 7E                  327 	ld	a,(hl)
+   006C F5                  328 	push	af
+   006D 33                  329 	inc	sp
+                            330 ; genCall
+   006E CD 00 00            331 	call	_color
+   0071 E8 03               332 	lda	sp,3(sp)
+                            333 ;	filltest.c 21
+                            334 ; genAssign
+                            335 ; AOP_STK for _main_c_1_1
+   0073 F8 05               336 	lda	hl,5(sp)
+   0075 4E                  337 	ld	c,(hl)
+                            338 ; genPlus
+                            339 ; AOP_STK for _main_c_1_1
+                            340 ; AOP_STK for _main_sloc2_1_0
+                            341 ; genPlusIncr
+   0076 7E                  342 	ld	a,(hl)
+   0077 C6 01               343 	add	a,#0x01
+   0079 F8 00               344 	lda	hl,0(sp)
+   007B 77                  345 	ld	(hl),a ; 3
+                            346 ; genAssign
+                            347 ; AOP_STK for _main_sloc2_1_0
+                            348 ; AOP_STK for _main_c_1_1
+   007C 7E                  349 	ld	a,(hl)
+   007D F8 05               350 	lda	hl,5(sp)
+   007F 77                  351 	ld	(hl),a ; 3
+                            352 ; genIpush
+   0080 79                  353 	ld	a,c
+   0081 F5                  354 	push	af
+   0082 33                  355 	inc	sp
+                            356 ; genIpush
+   0083 21 0F 02            357 	ld	hl,#__str_0 + 0
+   0086 E5                  358 	push	hl
+                            359 ; genCall
+   0087 CD 00 00            360 	call	_gprintf
+   008A E8 03               361 	lda	sp,3(sp)
+                            362 ;	filltest.c 13
+                            363 ; genPlus
+                            364 ; AOP_STK for _main_b_1_1
+                            365 ; genPlusIncr
+   008C F8 06               366 	lda	hl,6(sp)
+   008E 7E                  367 	ld	a,(hl)
+   008F C6 01               368 	add	a,#0x01
+   0091 47                  369 	ld	b,a
+                            370 ; genAssign
+                            371 ; AOP_STK for _main_b_1_1
+   0092 70                  372 	ld	(hl),b ; 3
+                            373 ; genGoto
+   0093 C3 20 00            374 	jp	00103$
+                            375 ; genLabel
+   0096                     376 00109$:
+                            377 ;	filltest.c 12
+                            378 ; genPlus
+                            379 ; AOP_STK for _main_a_1_1
+                            380 ; genPlusIncr
+   0096 F8 07               381 	lda	hl,7(sp)
+   0098 34                  382 	inc	(hl)
+                            383 ; genGoto
+   0099 C3 0B 00            384 	jp	00107$
+                            385 ; genLabel
+   009C                     386 00110$:
+                            387 ;	filltest.c 26
+                            388 ; genIpush
+   009C 3E 00               389 	ld	a,#0x00
+   009E F5                  390 	push	af
+   009F 33                  391 	inc	sp
+                            392 ; genIpush
+   00A0 3E 00               393 	ld	a,#0x00
+   00A2 F5                  394 	push	af
+   00A3 33                  395 	inc	sp
+                            396 ; genIpush
+   00A4 3E 01               397 	ld	a,#0x01
+   00A6 F5                  398 	push	af
+   00A7 33                  399 	inc	sp
+                            400 ; genCall
+   00A8 CD 00 00            401 	call	_color
+   00AB E8 03               402 	lda	sp,3(sp)
+                            403 ;	filltest.c 27
+                            404 ; genIpush
+   00AD 3E 01               405 	ld	a,#0x01
+   00AF F5                  406 	push	af
+   00B0 33                  407 	inc	sp
+                            408 ; genIpush
+   00B1 3E 0F               409 	ld	a,#0x0F
+   00B3 F5                  410 	push	af
+   00B4 33                  411 	inc	sp
+                            412 ; genIpush
+   00B5 3E 14               413 	ld	a,#0x14
+   00B7 F5                  414 	push	af
+   00B8 33                  415 	inc	sp
+                            416 ; genIpush
+   00B9 3E 8C               417 	ld	a,#0x8C
+   00BB F5                  418 	push	af
+   00BC 33                  419 	inc	sp
+                            420 ; genCall
+   00BD CD 00 00            421 	call	_circle
+   00C0 E8 04               422 	lda	sp,4(sp)
+                            423 ;	filltest.c 28
+                            424 ; genIpush
+   00C2 3E 00               425 	ld	a,#0x00
+   00C4 F5                  426 	push	af
+   00C5 33                  427 	inc	sp
+                            428 ; genIpush
+   00C6 3E 00               429 	ld	a,#0x00
+   00C8 F5                  430 	push	af
+   00C9 33                  431 	inc	sp
+                            432 ; genIpush
+   00CA 3E 03               433 	ld	a,#0x03
+   00CC F5                  434 	push	af
+   00CD 33                  435 	inc	sp
+                            436 ; genCall
+   00CE CD 00 00            437 	call	_color
+   00D1 E8 03               438 	lda	sp,3(sp)
+                            439 ;	filltest.c 29
+                            440 ; genIpush
+   00D3 3E 00               441 	ld	a,#0x00
+   00D5 F5                  442 	push	af
+   00D6 33                  443 	inc	sp
+                            444 ; genIpush
+   00D7 3E 0A               445 	ld	a,#0x0A
+   00D9 F5                  446 	push	af
+   00DA 33                  447 	inc	sp
+                            448 ; genIpush
+   00DB 3E 14               449 	ld	a,#0x14
+   00DD F5                  450 	push	af
+   00DE 33                  451 	inc	sp
+                            452 ; genIpush
+   00DF 3E 8C               453 	ld	a,#0x8C
+   00E1 F5                  454 	push	af
+   00E2 33                  455 	inc	sp
+                            456 ; genCall
+   00E3 CD 00 00            457 	call	_circle
+   00E6 E8 04               458 	lda	sp,4(sp)
+                            459 ;	filltest.c 30
+                            460 ; genIpush
+   00E8 3E 02               461 	ld	a,#0x02
+   00EA F5                  462 	push	af
+   00EB 33                  463 	inc	sp
+                            464 ; genIpush
+   00EC 3E 00               465 	ld	a,#0x00
+   00EE F5                  466 	push	af
+   00EF 33                  467 	inc	sp
+                            468 ; genIpush
+   00F0 3E 02               469 	ld	a,#0x02
+   00F2 F5                  470 	push	af
+   00F3 33                  471 	inc	sp
+                            472 ; genCall
+   00F4 CD 00 00            473 	call	_color
+   00F7 E8 03               474 	lda	sp,3(sp)
+                            475 ;	filltest.c 31
+                            476 ; genIpush
+   00F9 3E 01               477 	ld	a,#0x01
+   00FB F5                  478 	push	af
+   00FC 33                  479 	inc	sp
+                            480 ; genIpush
+   00FD 3E 1E               481 	ld	a,#0x1E
+   00FF F5                  482 	push	af
+   0100 33                  483 	inc	sp
+                            484 ; genIpush
+   0101 3E 28               485 	ld	a,#0x28
+   0103 F5                  486 	push	af
+   0104 33                  487 	inc	sp
+                            488 ; genIpush
+   0105 3E 78               489 	ld	a,#0x78
+   0107 F5                  490 	push	af
+   0108 33                  491 	inc	sp
+                            492 ; genCall
+   0109 CD 00 00            493 	call	_circle
+   010C E8 04               494 	lda	sp,4(sp)
+                            495 ;	filltest.c 32
+                            496 ; genIpush
+   010E 3E 8F               497 	ld	a,#0x8F
+   0110 F5                  498 	push	af
+   0111 33                  499 	inc	sp
+                            500 ; genIpush
+   0112 3E 9F               501 	ld	a,#0x9F
+   0114 F5                  502 	push	af
+   0115 33                  503 	inc	sp
+                            504 ; genIpush
+   0116 3E 00               505 	ld	a,#0x00
+   0118 F5                  506 	push	af
+   0119 33                  507 	inc	sp
+                            508 ; genIpush
+   011A 3E 00               509 	ld	a,#0x00
+   011C F5                  510 	push	af
+   011D 33                  511 	inc	sp
+                            512 ; genCall
+   011E CD 00 00            513 	call	_line
+   0121 E8 04               514 	lda	sp,4(sp)
+                            515 ;	filltest.c 33
+                            516 ; genIpush
+   0123 3E 00               517 	ld	a,#0x00
+   0125 F5                  518 	push	af
+   0126 33                  519 	inc	sp
+                            520 ; genIpush
+   0127 3E 01               521 	ld	a,#0x01
+   0129 F5                  522 	push	af
+   012A 33                  523 	inc	sp
+                            524 ; genIpush
+   012B 3E 03               525 	ld	a,#0x03
+   012D F5                  526 	push	af
+   012E 33                  527 	inc	sp
+                            528 ; genCall
+   012F CD 00 00            529 	call	_color
+   0132 E8 03               530 	lda	sp,3(sp)
+                            531 ;	filltest.c 34
+                            532 ; genIpush
+   0134 3E 00               533 	ld	a,#0x00
+   0136 F5                  534 	push	af
+   0137 33                  535 	inc	sp
+                            536 ; genIpush
+   0138 3E 8F               537 	ld	a,#0x8F
+   013A F5                  538 	push	af
+   013B 33                  539 	inc	sp
+                            540 ; genIpush
+   013C 3E 28               541 	ld	a,#0x28
+   013E F5                  542 	push	af
+   013F 33                  543 	inc	sp
+                            544 ; genIpush
+   0140 3E 82               545 	ld	a,#0x82
+   0142 F5                  546 	push	af
+   0143 33                  547 	inc	sp
+                            548 ; genIpush
+   0144 3E 00               549 	ld	a,#0x00
+   0146 F5                  550 	push	af
+   0147 33                  551 	inc	sp
+                            552 ; genCall
+   0148 CD 00 00            553 	call	_box
+   014B E8 05               554 	lda	sp,5(sp)
+                            555 ;	filltest.c 35
+                            556 ; genIpush
+   014D 3E 01               557 	ld	a,#0x01
+   014F F5                  558 	push	af
+   0150 33                  559 	inc	sp
+                            560 ; genIpush
+   0151 3E 8F               561 	ld	a,#0x8F
+   0153 F5                  562 	push	af
+   0154 33                  563 	inc	sp
+                            564 ; genIpush
+   0155 3E 5A               565 	ld	a,#0x5A
+   0157 F5                  566 	push	af
+   0158 33                  567 	inc	sp
+                            568 ; genIpush
+   0159 3E 82               569 	ld	a,#0x82
+   015B F5                  570 	push	af
+   015C 33                  571 	inc	sp
+                            572 ; genIpush
+   015D 3E 32               573 	ld	a,#0x32
+   015F F5                  574 	push	af
+   0160 33                  575 	inc	sp
+                            576 ; genCall
+   0161 CD 00 00            577 	call	_box
+   0164 E8 05               578 	lda	sp,5(sp)
+                            579 ;	filltest.c 38
+                            580 ; genAssign
+                            581 ; AOP_STK for _main_c_1_1
+   0166 F8 05               582 	lda	hl,5(sp)
+   0168 36 00               583 	ld	(hl),#0x00 ; 3
+                            584 ; genLabel
+   016A                     585 00119$:
+                            586 ; genCmpGt
+                            587 ; AOP_STK for _main_c_1_1
+   016A AF                  588 	xor	a,a
+   016B 3E 8F               589 	ld	a,#0x8F
+   016D F8 05               590 	lda	hl,5(sp)
+   016F 9E                  591 	sbc	a,(hl) ; 2
+   0170 DA 0B 02            592 	jp	c,00123$
+                            593 ;	filltest.c 39
+                            594 ; genAssign
+                            595 ; AOP_STK for _main_b_1_1
+   0173 23                  596 	inc	hl
+   0174 36 00               597 	ld	(hl),#0x00 ; 3
+                            598 ; genLabel
+   0176                     599 00115$:
+                            600 ; genCmpGt
+                            601 ; AOP_STK for _main_b_1_1
+                            602 ; AOP_STK for _main_sloc2_1_0
+   0176 AF                  603 	xor	a,a
+   0177 3E 8E               604 	ld	a,#0x8E
+   0179 F8 06               605 	lda	hl,6(sp)
+   017B 9E                  606 	sbc	a,(hl) ; 2
+   017C 3E 00               607 	ld	a,#0x00
+   017E 17                  608 	rla
+   017F F8 00               609 	lda	hl,0(sp)
+   0181 77                  610 	ld	(hl),a ; 3
+                            611 ; genIfx
+                            612 ; AOP_STK for _main_sloc2_1_0
+                            613 ; Removed redundent or a,a
+   0182 AF                  614 	xor	a,a
+   0183 B6                  615 	or	a,(hl)
+   0184 C2 F0 01            616 	jp	nz,00118$
+                            617 ;	filltest.c 40
+                            618 ; genAssign
+                            619 ; AOP_STK for _main_a_1_1
+   0187 F8 07               620 	lda	hl,7(sp)
+   0189 36 00               621 	ld	(hl),#0x00 ; 3
+                            622 ; genPlus
+                            623 ; AOP_STK for _main_b_1_1
+                            624 ; genPlusIncr
+   018B 2B                  625 	dec	hl
+   018C 7E                  626 	ld	a,(hl)
+   018D C6 01               627 	add	a,#0x01
+   018F 47                  628 	ld	b,a
+                            629 ; genLabel
+   0190                     630 00111$:
+                            631 ; genCmpGt
+                            632 ; AOP_STK for _main_a_1_1
+                            633 ; AOP_STK for _main_sloc1_1_0
+   0190 AF                  634 	xor	a,a
+   0191 3E 9F               635 	ld	a,#0x9F
+   0193 F8 07               636 	lda	hl,7(sp)
+   0195 9E                  637 	sbc	a,(hl) ; 2
+   0196 3E 00               638 	ld	a,#0x00
+   0198 17                  639 	rla
+   0199 F8 01               640 	lda	hl,1(sp)
+   019B 77                  641 	ld	(hl),a ; 3
+                            642 ; genIfx
+                            643 ; AOP_STK for _main_sloc1_1_0
+                            644 ; Removed redundent or a,a
+   019C AF                  645 	xor	a,a
+   019D B6                  646 	or	a,(hl)
+   019E C2 D9 01            647 	jp	nz,00114$
+                            648 ;	filltest.c 41
+                            649 ; genIpush
+   01A1 78                  650 	ld	a,b
+   01A2 F5                  651 	push	af
+   01A3 33                  652 	inc	sp
+                            653 ; genIpush
+                            654 ; AOP_STK for _main_a_1_1
+   01A4 F8 08               655 	lda	hl,8(sp)
+   01A6 7E                  656 	ld	a,(hl)
+   01A7 F5                  657 	push	af
+   01A8 33                  658 	inc	sp
+                            659 ; genCall
+   01A9 CD 00 00            660 	call	_getpix
+                            661 ; AOP_STK for _main_sloc0_1_0
+   01AC F8 04               662 	lda	hl,4(sp)
+   01AE 73                  663 	ld	(hl),e ; 3
+   01AF E8 02               664 	lda	sp,2(sp)
+                            665 ; genIpush
+   01B1 3E 00               666 	ld	a,#0x00
+   01B3 F5                  667 	push	af
+   01B4 33                  668 	inc	sp
+                            669 ; genIpush
+   01B5 3E 00               670 	ld	a,#0x00
+   01B7 F5                  671 	push	af
+   01B8 33                  672 	inc	sp
+                            673 ; genIpush
+                            674 ; AOP_STK for _main_sloc0_1_0
+   01B9 7E                  675 	ld	a,(hl)
+   01BA F5                  676 	push	af
+   01BB 33                  677 	inc	sp
+                            678 ; genCall
+   01BC CD 00 00            679 	call	_color
+   01BF E8 03               680 	lda	sp,3(sp)
+                            681 ;	filltest.c 42
+                            682 ; genIpush
+                            683 ; AOP_STK for _main_b_1_1
+   01C1 F8 06               684 	lda	hl,6(sp)
+   01C3 7E                  685 	ld	a,(hl)
+   01C4 F5                  686 	push	af
+   01C5 33                  687 	inc	sp
+                            688 ; genIpush
+                            689 ; AOP_STK for _main_a_1_1
+   01C6 23                  690 	inc	hl
+   01C7 7E                  691 	ld	a,(hl)
+   01C8 F5                  692 	push	af
+   01C9 33                  693 	inc	sp
+                            694 ; genCall
+   01CA CD 00 00            695 	call	_plot_point
+   01CD E8 02               696 	lda	sp,2(sp)
+                            697 ;	filltest.c 40
+                            698 ; genPlus
+                            699 ; AOP_STK for _main_a_1_1
+                            700 ; genPlusIncr
+   01CF F8 07               701 	lda	hl,7(sp)
+   01D1 7E                  702 	ld	a,(hl)
+   01D2 C6 01               703 	add	a,#0x01
+   01D4 4F                  704 	ld	c,a
+                            705 ; genAssign
+                            706 ; AOP_STK for _main_a_1_1
+   01D5 71                  707 	ld	(hl),c ; 3
+                            708 ; genGoto
+   01D6 C3 90 01            709 	jp	00111$
+                            710 ; genLabel
+   01D9                     711 00114$:
+                            712 ;	filltest.c 44
+                            713 ; genIpush
+   01D9 3E 00               714 	ld	a,#0x00
+   01DB F5                  715 	push	af
+   01DC 33                  716 	inc	sp
+                            717 ; genIpush
+   01DD 3E 00               718 	ld	a,#0x00
+   01DF F5                  719 	push	af
+   01E0 33                  720 	inc	sp
+                            721 ; genIpush
+   01E1 3E 00               722 	ld	a,#0x00
+   01E3 F5                  723 	push	af
+   01E4 33                  724 	inc	sp
+                            725 ; genCall
+   01E5 CD 00 00            726 	call	_color
+   01E8 E8 03               727 	lda	sp,3(sp)
+                            728 ;	filltest.c 39
+                            729 ; genAssign
+                            730 ; AOP_STK for _main_b_1_1
+   01EA F8 06               731 	lda	hl,6(sp)
+   01EC 70                  732 	ld	(hl),b ; 3
+                            733 ; genGoto
+   01ED C3 76 01            734 	jp	00115$
+                            735 ; genLabel
+   01F0                     736 00118$:
+                            737 ;	filltest.c 46
+                            738 ; genIpush
+   01F0 3E 8F               739 	ld	a,#0x8F
+   01F2 F5                  740 	push	af
+   01F3 33                  741 	inc	sp
+                            742 ; genIpush
+   01F4 3E 9F               743 	ld	a,#0x9F
+   01F6 F5                  744 	push	af
+   01F7 33                  745 	inc	sp
+                            746 ; genIpush
+   01F8 3E 8F               747 	ld	a,#0x8F
+   01FA F5                  748 	push	af
+   01FB 33                  749 	inc	sp
+                            750 ; genIpush
+   01FC 3E 00               751 	ld	a,#0x00
+   01FE F5                  752 	push	af
+   01FF 33                  753 	inc	sp
+                            754 ; genCall
+   0200 CD 00 00            755 	call	_line
+   0203 E8 04               756 	lda	sp,4(sp)
+                            757 ;	filltest.c 38
+                            758 ; genPlus
+                            759 ; AOP_STK for _main_c_1_1
+                            760 ; genPlusIncr
+   0205 F8 05               761 	lda	hl,5(sp)
+   0207 34                  762 	inc	(hl)
+                            763 ; genGoto
+   0208 C3 6A 01            764 	jp	00119$
+                            765 ; genLabel
+   020B                     766 00123$:
+                            767 ; genEndFunction
+   020B E8 08               768 	lda	sp,8(sp)
+   020D C1                  769 	pop bc
+   020E C9                  770 	ret
+   020F                     771 ___main_end:
+                            772 	.area _CODE
+   020F                     773 __str_0:
+   020F 25 63               774 	.ascii "%c"
+   0211 00                  775 	.db 0
+ASxxxx Assembler V01.75  (GameBoy Z80-like CPU), page 1.
+
+Symbol Table
+
+    _BCPD_REG                          **** GX
+    _BCPS_REG                          **** GX
+    _BGP_REG                           **** GX
+    _DIV_REG                           **** GX
+    _DMA_REG                           **** GX
+    _HDMA1_REG                         **** GX
+    _HDMA2_REG                         **** GX
+    _HDMA3_REG                         **** GX
+    _HDMA4_REG                         **** GX
+    _HDMA5_REG                         **** GX
+    _IE_REG                            **** GX
+    _IF_REG                            **** GX
+    _KEY1_REG                          **** GX
+    _LCDC_REG                          **** GX
+    _LYC_REG                           **** GX
+    _LY_REG                            **** GX
+    _NR10_REG                          **** GX
+    _NR11_REG                          **** GX
+    _NR12_REG                          **** GX
+    _NR13_REG                          **** GX
+    _NR14_REG                          **** GX
+    _NR21_REG                          **** GX
+    _NR22_REG                          **** GX
+    _NR23_REG                          **** GX
+    _NR24_REG                          **** GX
+    _NR30_REG                          **** GX
+    _NR31_REG                          **** GX
+    _NR32_REG                          **** GX
+    _NR33_REG                          **** GX
+    _NR34_REG                          **** GX
+    _NR41_REG                          **** GX
+    _NR42_REG                          **** GX
+    _NR43_REG                          **** GX
+    _NR44_REG                          **** GX
+    _NR50_REG                          **** GX
+    _NR51_REG                          **** GX
+    _NR52_REG                          **** GX
+    _OBP0_REG                          **** GX
+    _OBP1_REG                          **** GX
+    _OCPD_REG                          **** GX
+    _OCPS_REG                          **** GX
+    _P1_REG                            **** GX
+    _RP_REG                            **** GX
+    _SB_REG                            **** GX
+    _SCX_REG                           **** GX
+    _SCY_REG                           **** GX
+    _SC_REG                            **** GX
+    _STAT_REG                          **** GX
+    _SVBK_REG                          **** GX
+    _TAC_REG                           **** GX
+    _TIMA_REG                          **** GX
+    _TMA_REG                           **** GX
+    _VBK_REG                           **** GX
+    _WX_REG                            **** GX
+    _WY_REG                            **** GX
+  0 ___main_end                        020F R
+  0 ___main_start                      0000 R
+    __cpu                              **** GX
+    __io_in                            **** GX
+    __io_out                           **** GX
+    __io_status                        **** GX
+  0 __str_0                            020F R
+    _add_LCD                           **** GX
+    _add_TIM                           **** GX
+    _add_VBL                           **** GX
+    _box                               **** GX
+    _cgb_compatibility                 **** GX
+    _circle                            **** GX
+    _color                             **** GX
+    _cpu_fast                          **** GX
+    _cpu_slow                          **** GX
+    _delay                             **** GX
+    _disable_interrupts                **** GX
+    _display_off                       **** GX
+    _draw_image                        **** GX
+    _enable_interrupts                 **** GX
+    _get_bkg_tiles                     **** GX
+    _get_data                          **** GX
+    _get_mode                          **** GX
+    _get_sprite_data                   **** GX
+    _get_sprite_prop                   **** GX
+    _get_sprite_tile                   **** GX
+    _get_tiles                         **** GX
+    _get_win_tiles                     **** GX
+    _getpix                            **** GX
+    _gotogxy                           **** GX
+    _gprint                            **** GX
+    _gprintf                           **** GX
+    _gprintln                          **** GX
+    _gprintn                           **** GX
+    _hiramcpy                          **** GX
+    _joypad                            **** GX
+    _line                              **** GX
+  0 _main                              0000 GR
+    _mode                              **** GX
+    _move_bkg                          **** GX
+    _move_sprite                       **** GX
+    _move_win                          **** GX
+    _plot                              **** GX
+    _plot_point                        **** GX
+    _receive_byte                      **** GX
+    _remove_JOY                        **** GX
+    _remove_LCD                        **** GX
+    _remove_SIO                        **** GX
+    _remove_TIM                        **** GX
+    _remove_VBL                        **** GX
+    _reset                             **** GX
+    _scroll_bkg                        **** GX
+    _scroll_sprite                     **** GX
+    _scroll_win                        **** GX
+    _send_byte                         **** GX
+    _set_bkg_data                      **** GX
+    _set_bkg_palette                   **** GX
+    _set_bkg_palette_entry             **** GX
+    _set_bkg_tiles                     **** GX
+    _set_data                          **** GX
+    _set_interrupts                    **** GX
+    _set_sprite_data                   **** GX
+    _set_sprite_palette                **** GX
+    _set_sprite_palette_entry          **** GX
+    _set_sprite_prop                   **** GX
+    _set_sprite_tile                   **** GX
+    _set_tiles                         **** GX
+    _set_win_data                      **** GX
+    _set_win_tiles                     **** GX
+    _sgb_check                         **** GX
+    _switch_data                       **** GX
+    _sys_time                          **** GX
+    _wait_vbl_done                     **** GX
+    _waitpad                           **** GX
+    _waitpadup                         **** GX
+    _wrtchr                            **** GX
+
+ASxxxx Assembler V01.75  (GameBoy Z80-like CPU), page 2.
+
+Area Table
+
+   0 _CODE                              size  212   flags 0
+   1 _DATA                              size    0   flags 0
+   2 _OVERLAY                           size    0   flags 0
+   3 _ISEG                              size    0   flags 0
+   4 _BSEG                              size    0   flags 0
+   5 _XSEG                              size    0   flags 0
+   6 _GSINIT                            size    0   flags 0
+   7 _GSFINAL                           size    0   flags 0

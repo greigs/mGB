@@ -1,0 +1,193 @@
+AREA .  .ABS.
+	RADIX HEX
+	BASE 0000
+	SIZE 0000
+	ATTRIB ABS OVR
+	GLOBALS
+		l__DATA	0000
+		l__HEAP	0000
+		l_.  .ABS.	0000
+		l__GSFINAL	0000
+		s_.  .ABS.	0000
+		l__HOME	0000
+		s__HEADER	0000
+		.init	0000
+		l__GSINIT	0000
+		l__GSINITTAIL	0001
+		l__BSS	0075
+		l__HEADER	01E1
+		s__CODE	0200
+		l__CODE	07CA
+		s__HOME	09CA
+		s__LIT	09CA
+		l__LIT	0DDC
+		s__GSINITTAIL	17A6
+		s__GSINIT	17A6
+		s__GSFINAL	17A7
+		.OAM	C000
+		s__DATA	C0A0
+		s__BSS	C0A0
+		s__HEAP	C115
+		.STACK	E000
+		.refresh_OAM	FF80
+AREA _CODE
+	RADIX HEX
+	BASE 0200
+	SIZE 07CA
+	ATTRIB REL CON
+	GLOBALS
+		.set_mode	0200
+		.remove_VBL	0210
+		.remove_LCD	0216
+		.remove_TIM	021C
+		.remove_SIO	0222
+		.remove_JOY	0228
+		.add_VBL	022E
+		.add_LCD	0234
+		.add_TIM	023A
+		.add_SIO	0240
+		.add_JOY	0246
+		.remove_int	024C
+		.add_int	026C
+		.wait_vbl_done	0288
+		_wait_vbl_done	0288
+		_display_off	0299
+		.display_off	0299
+		.serial_IO	02BA
+		_mode	02E9
+		_get_mode	02F2
+		_enable_interrupts	02F7
+		_disable_interrupts	02F9
+		_reset	02FB
+		.reset	02FB
+		_set_interrupts	0301
+		_remove_VBL	030C
+		_remove_LCD	0317
+		_remove_TIM	0322
+		_remove_SIO	032D
+		_remove_JOY	0338
+		_add_VBL	0343
+		_add_LCD	034E
+		_add_TIM	0359
+		_add_SIO	0364
+		_add_JOY	036F
+		_clock	037A
+		__printTStates	0383
+		_main	0384
+		.mv_sprite	086D
+		_move_sprite	087C
+		.set_xy_wtt	0889
+		.set_xy_btt	089A
+		.set_xy_tt	08A9
+		_set_tiles	08DA
+		.init_vram	08F3
+		.init_wtt	0901
+		.init_btt	0911
+		.init_tt	091F
+		.padup	0925
+		_waitpadup	0925
+		.jpad	0935
+		.wait_pad	0962
+		_joypad	0969
+		_waitpad	096E
+		.set_sprite_prop	0978
+		_set_sprite_prop	0985
+		.set_sprite_tile	0990
+		_set_sprite_tile	099D
+		.copy_vram	09A8
+		_get_data	09B7
+		_set_data	09B7
+AREA _HEADER
+	RADIX HEX
+	BASE 0000
+	SIZE 01E1
+	ATTRIB ABS OVR
+	GLOBALS
+		_exit	01D1
+AREA _HOME
+	RADIX HEX
+	BASE 09CA
+	SIZE 0000
+	ATTRIB REL CON
+AREA _LIT
+	RADIX HEX
+	BASE 09CA
+	SIZE 0DDC
+	ATTRIB REL CON
+AREA _GSINIT
+	RADIX HEX
+	BASE 17A6
+	SIZE 0000
+	ATTRIB REL CON
+	GLOBALS
+		gsinit	17A6
+AREA _GSINITTAIL
+	RADIX HEX
+	BASE 17A6
+	SIZE 0001
+	ATTRIB REL CON
+AREA _GSFINAL
+	RADIX HEX
+	BASE 17A7
+	SIZE 0000
+	ATTRIB REL CON
+AREA _DATA
+	RADIX HEX
+	BASE C0A0
+	SIZE 0000
+	ATTRIB REL CON
+AREA _BSS
+	RADIX HEX
+	BASE C0A0
+	SIZE 0075
+	ATTRIB REL CON
+	GLOBALS
+		__cpu	C0A0
+		.mode	C0A1
+		__io_out	C0A2
+		__io_in	C0A3
+		__io_status	C0A4
+		.vbl_done	C0A5
+		_sys_time	C0A6
+		.sys_time	C0A6
+		.int_0x40	C0A8
+		.int_0x48	C0B8
+		.int_0x50	C0C8
+		.int_0x58	C0D8
+		.int_0x60	C0E8
+AREA _HEAP
+	RADIX HEX
+	BASE C115
+	SIZE 0000
+	ATTRIB REL CON
+	GLOBALS
+		_malloc_heap_start	C115
+MODULES
+	FILE C:\repo\gb\gbdk\lib/gb/crt0.o
+		NAME Runtime
+	FILE space.o
+		NAME Space
+LIBRARIES
+	LIBRARY C:\repo\gb\gbdk\lib/gb/gb.lib
+		MODULE mv_spr.o
+	LIBRARY C:\repo\gb\gbdk\lib/gb/gb.lib
+		MODULE set_xy_t.o
+	LIBRARY C:\repo\gb\gbdk\lib/gb/gb.lib
+		MODULE init_tt.o
+	LIBRARY C:\repo\gb\gbdk\lib/gb/gb.lib
+		MODULE pad.o
+	LIBRARY C:\repo\gb\gbdk\lib/gb/gb.lib
+		MODULE set_prop.o
+	LIBRARY C:\repo\gb\gbdk\lib/gb/gb.lib
+		MODULE set_spr.o
+	LIBRARY C:\repo\gb\gbdk\lib/gb/gb.lib
+		MODULE cpy_data.o
+USERBASEDEF
+	_CODE=0x0200
+	_DATA=0xC0A0
+	_CODE_1=0x4000
+USERGLOBALDEF
+	.OAM=0xC000
+	.STACK=0xE000
+	.refresh_OAM=0xFF80
+	.init=0x0000

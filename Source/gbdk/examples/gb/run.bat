@@ -1,0 +1,1 @@
+..\..\..\VisualBoyAdvance-M.exe fonts.gb
