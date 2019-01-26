@@ -25,7 +25,7 @@ void asmPlayNotePu1();
 
 void testSynths();
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 #define GLOBAL_POSITION_YOFFSET -1
 #define GLOBAL_POSITION_YOFFSET_BYTE 4
 
