@@ -48,6 +48,7 @@ void testSynths()
 	addressByte = 0x40;
 	valueByte = 0x7F;
 	asmPlayNotePu1();
+	cursorEnable[0] = 1;
 }
 
 
@@ -83,8 +84,5 @@ void main()
 
 	showMainScreen();
     printversion();
-	if (DEBUG_MODE){
-		testSynths();
-	}
 	asmMain();
 }
