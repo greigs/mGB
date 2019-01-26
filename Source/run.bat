@@ -1,0 +1,1 @@
+cmd.exe /c "testrunner\bgb.exe mGB.gb"
