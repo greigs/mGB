@@ -489,8 +489,8 @@ BOOLEAN shiftSelect;
 BOOLEAN systemIdle = 1;
 
 UBYTE vibratoPosition[4] = {0,0,0,0};
-UBYTE vibratoSpeed[4] = {15,2,2,2};
-UBYTE vibratoDepth[4] = {5,0,0,0};
+UBYTE vibratoSpeed[4] = {15,15,15,15};
+UBYTE vibratoDepth[4] = {0,0,0,0};
 BOOLEAN vibratoSlope[4] = {0,0,0,0};
 
 UBYTE dataSetSnap[28];
