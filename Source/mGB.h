@@ -25,7 +25,7 @@ void asmPlayNotePu1();
 
 void testSynths();
 
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 #define GLOBAL_POSITION_YOFFSET -1
 #define GLOBAL_POSITION_YOFFSET_BYTE 4
 
@@ -489,8 +489,8 @@ BOOLEAN shiftSelect;
 BOOLEAN systemIdle = 1;
 
 UBYTE vibratoPosition[4] = {0,0,0,0};
-UBYTE vibratoSpeed[4] = {6,6,6,6};
-UBYTE vibratoDepth[4] = {15,0,0,0};
+UBYTE vibratoSpeed[4] = {15,2,2,2};
+UBYTE vibratoDepth[4] = {5,0,0,0};
 BOOLEAN vibratoSlope[4] = {0,0,0,0};
 
 UBYTE dataSetSnap[28];
