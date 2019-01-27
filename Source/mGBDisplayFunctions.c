@@ -1,12 +1,12 @@
 void printversion()
 {
-	set_bkg_tiles(1,16,10,1,versionnumber);
+	set_bkg_tiles(1,17,16,1,versionnumber);
 }
 
 void printhelp()
 {
 	j=helpmap[cursorColumn][cursorRowMain];
-	set_bkg_tiles(1,16,18,1,helpdata[j]);
+	set_bkg_tiles(1,17,18,1,helpdata[j]);
 }
 
 void updateDisplayValue(UBYTE p,UBYTE v)
@@ -195,13 +195,13 @@ void showSampleScreen()
 }
 
 void showMainScreen()
-{
+{ 
 	cls();
 	currentScreen = 1;
-	bkg[0]=66;set_bkg_tiles(3,3,1,1,bkg);
-	bkg[0]=67;set_bkg_tiles(7,3,1,1,bkg);
-	bkg[0]=68;set_bkg_tiles(11,3,1,1,bkg);
-	bkg[0]=69;set_bkg_tiles(15,3,1,1,bkg);
+	bkg[0]=66;set_bkg_tiles(3,3 + GLOBAL_POSITION_YOFFSET,1,1,bkg);
+	bkg[0]=67;set_bkg_tiles(7,3 + GLOBAL_POSITION_YOFFSET,1,1,bkg);
+	bkg[0]=68;set_bkg_tiles(11,3 + GLOBAL_POSITION_YOFFSET,1,1,bkg);
+	bkg[0]=69;set_bkg_tiles(15,3 + GLOBAL_POSITION_YOFFSET,1,1,bkg);
 
 	for(j=0;j!=28;j++) {
 		bkg[0] = bkg[1] = 1;

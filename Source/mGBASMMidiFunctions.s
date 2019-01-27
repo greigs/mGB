@@ -276,6 +276,10 @@ _asmEventMidiCCPu1$::
 		jp z,_asmPu1VD$;
 	cp	#0x0C
 		jp z,_asmPu1VR$;
+	cp	#0x0D ; CC11 -> Vibrato Depth
+		jp z,_asmPu1Vid$;
+	cp	#0x0E ; CC12 -> Vibrato Speed
+		jp z,_asmPu1Vis$;
 	cp	#0x40
 		jp z,_asmPu1Sus$;
 	cp	#0x7B
@@ -456,6 +460,23 @@ _asmPu1VR$::
 pop	bc
 ret
 
+_asmPu1Vid$::
+	ld	hl,#_valueByte
+	ld	A,(hl)
+	
+	ld	de,#_vibratoDepth + 0
+    ld	(de),A
+pop	bc
+ret
+
+_asmPu1Vis$::
+	ld	hl,#_valueByte
+	ld	A,(hl)
+	
+	ld	de,#_vibratoSpeed + 0
+    ld	(de),A
+pop	bc
+ret
 
 _asmPu1Sus$::
 	ld	hl,#_valueByte
@@ -522,6 +543,10 @@ _asmEventMidiCCPu2$::
 		jp z,_asmPu2VD$;
 	cp	#0x0C
 		jp z,_asmPu2VR$;
+	cp	#0x0D ; CC11 -> Vibrato Depth
+		jp z,_asmPu2Vid$;
+	cp	#0x0E ; CC11 -> Vibrato Speed
+		jp z,_asmPu2Vis$;		
 	cp	#0x40
 		jp z,_asmPu2Sus$;
 	cp	#0x7B
@@ -684,6 +709,23 @@ _asmPu2VR$::
 pop	bc
 ret
 
+_asmPu2Vid$::
+	ld	hl,#_valueByte
+	ld	A,(hl)
+	
+	ld	de,#_vibratoDepth + 1
+    ld	(de),A
+pop	bc
+ret
+
+_asmPu2Vis$::
+	ld	hl,#_valueByte
+	ld	A,(hl)
+	
+	ld	de,#_vibratoSpeed + 1
+    ld	(de),A
+pop	bc
+ret
 
 _asmPu2Sus$::
 	ld	hl,#_valueByte
@@ -751,6 +793,10 @@ _asmEventMidiCCWav$::
 		jp z,_asmWavVD$;
 	cp	#0x0C
 		jp z,_asmWavVR$;
+	cp	#0x0D ; CC11 -> Vibrato Depth
+		jp z,_asmWavVid$;
+	cp	#0x0E ; CC12 -> Vibrato Speed
+		jp z,_asmWavVis$;		
 	cp	#0x40
 		jp z,_asmWavSus$;
 	cp	#0x7B
@@ -938,6 +984,23 @@ _asmWavVR$::
 pop	bc
 ret
 
+_asmWavVid$::
+	ld	hl,#_valueByte
+	ld	A,(hl)
+	
+	ld	de,#_vibratoDepth + 2
+    ld	(de),A
+pop	bc
+ret
+
+_asmWavVis$::
+	ld	hl,#_valueByte
+	ld	A,(hl)
+	
+	ld	de,#_vibratoSpeed + 2
+    ld	(de),A
+pop	bc
+ret
 
 _asmWavSus$::
 	ld	hl,#_valueByte
@@ -999,6 +1062,10 @@ _asmEventMidiCCNoi$::
 		jp z,_asmNoiVD$;
 	cp	#0x0C
 		jp z,_asmNoiVR$;
+	cp	#0x0D ; CC11 -> Vibrato Depth
+		jp z,_asmNoiVid$;
+	cp	#0x0E ; CC12 -> Vibrato Speed
+		jp z,_asmNoiVis$;
 	cp	#0x40
 		jp z,_asmNoiSus$;
 	cp	#0x7B
@@ -1126,6 +1193,23 @@ _asmNoiVR$::
 pop	bc
 ret
 
+_asmNoiVid$::
+	ld	hl,#_valueByte
+	ld	A,(hl)
+	
+	ld	de,#_vibratoDepth + 3
+    ld	(de),A
+pop	bc
+ret
+
+_asmNoiVis$::
+	ld	hl,#_valueByte
+	ld	A,(hl)
+	
+	ld	de,#_vibratoSpeed + 3
+    ld	(de),A
+pop	bc
+ret
 
 _asmNoiSus$::
 	ld	hl,#_valueByte
@@ -1186,6 +1270,10 @@ _asmEventMidiCCPoly$::
 		jr z,_asmPolyLod$;
 	cp	#0x0A
 		jr z,_asmPolyPan$;
+	cp	#0x0D ; CC11 -> Vibrato Depth
+		jp z,_asmPolyVid$;
+	cp	#0x0E ; CC12 -> Vibrato Speed
+		jp z,_asmPolyVis$;		
 	cp	#0x40
 		jr z,_asmPolySus$;
 	cp	#0x7B
@@ -1221,6 +1309,22 @@ push	bc
 	call _asmPu2Pan$;
 push	bc
 	call _asmWavPan$;
+ret
+
+_asmPolyVid$::
+	call _asmPu1Vid$;
+push	bc
+	call _asmPu2Vid$;
+push	bc
+	call _asmWavVid$;
+ret
+
+_asmPolyVis$::
+	call _asmPu1Vis$;
+push	bc
+	call _asmPu2Vis$;
+push	bc
+	call _asmWavVis$;
 ret
 
 _asmPolySus$::

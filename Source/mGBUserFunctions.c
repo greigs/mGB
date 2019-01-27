@@ -152,7 +152,10 @@ void getPad()
                 NR42_REG = 0;
 				pbWheelIn[0] = pbWheelIn[1] = pbWheelIn[2] = pbWheelIn[3] = 0x80;
                 pu1Sus = pu2Sus = wavSus = 0;
-				
+				if (DEBUG_MODE){
+					// force play note
+					testSynths();
+				}
 				return;
 			} else if (joyState[7]) {
 				joyState[7] = 0;
