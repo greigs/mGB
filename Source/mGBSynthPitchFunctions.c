@@ -51,6 +51,31 @@ void setPitchBendFrequencyOffsetNoise()
   currentFreqData[NOI] = currentFreq;
 }
 
+void addMadness(UBYTE synth){
+  if (portEnabled[synth] && currentFreqData[synth] != 0x00 && portPosition[synth] < portLength[synth] && valueByte == 0x7F){
+
+		// compute the step that we need to add or subtract this time around
+		UWORD targetFreq;
+		UWORD amountToAdd;
+		currentFreq = currentFreqData[synth];
+
+
+
+	  targetFreq = freq[noteStatus[1] + 0x01U];
+    if (currentFreq < targetFreq){
+      //showSplashScreen();
+			amountToAdd = (targetFreq - currentFreq) / 0x08U; //portLength[synth];		
+			currentFreq += amountToAdd;
+			NR14_REG = (currentFreq>>8U);
+			NR13_REG = currentFreq;
+			currentFreqData[synth] = currentFreq;
+			portPosition[synth]++;
+		}
+
+	
+	}
+}
+
 void addVibrato(UBYTE synth){
 	if(vibratoDepth[synth]) {
 		currentFreq = currentFreqData[synth] + vibratoPosition[synth];

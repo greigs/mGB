@@ -47,6 +47,8 @@ void testSynths()
 {
 	addressByte = 0x40;
 	valueByte = 0x7F;
+	noteStatus[1] = 0x40;
+	currentFreqData[0] = freq[0x40];
 	asmPlayNotePu1();
 	cursorEnable[0] = 1;
 }
@@ -79,10 +81,11 @@ void main()
 	SHOW_BKG;
 	SHOW_SPRITES;
 
-	showSplashScreen();
-	delay(500);
+	//showSplashScreen();
+	//delay(500);
 
 	showMainScreen();
     printversion();
 	asmMain();
+	//testSynths();
 }
