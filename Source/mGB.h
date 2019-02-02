@@ -13,6 +13,13 @@ UBYTE captureDataType;
 UBYTE capturedAddress;
 UBYTE updateDisplaySynthCounter;
 
+UBYTE newNote;
+		UBYTE tmp1;
+		UWORD tmp1Freq;
+	    UBYTE tmp2;
+		UWORD tmp2Freq;
+    UWORD newStepSize;
+
 void asmMain();
 void asmUpdateSerial();
 void asmLoadWav(UBYTE ost);
@@ -66,6 +73,8 @@ UWORD freq[72] = {
 };
 
 UBYTE noteStatus[8];
+UBYTE prevNote[4] = {0,0,0,0};
+UBYTE prevNoteTmp;
 
 UBYTE noiFreq[72] = { 
 0x94,0x87,0x86,0x85,0x84,0x77,0x76,0x75,0x74,0x67,0x66,0x65,
@@ -123,6 +132,7 @@ BOOLEAN joyState[8] = {0,0,0,0,0,0,0,0};
 UBYTE wavSweepSpeed;
 UWORD wavCurrentFreq;
 UWORD currentFreqData[4];
+UWORD currentPortFreqData[4] = {0,0,0,0};
 const UBYTE wavData[256] = {
 	0x01,0x23,0x45,0x67,
 	0x89,0xAB,0xCD,0xEF,
@@ -494,9 +504,10 @@ UBYTE vibratoDepth[4] = {0,0,0,0};
 BOOLEAN vibratoSlope[4] = {0,0,0,0};
 
 
-UWORD portPosition[4] = {0,0,0,0};
-UWORD portLength[4] = {0xFF,0xFF,0xFF,0xFF};
+UWORD portStepSize[4] = {1,1,1,1};
+UWORD portLength[4] = {0x08U,0x08U,0x08U,0x08U};
 BOOLEAN portEnabled[4] = {1,0,0,0};
+UINT8 portDelay[4] = {0,0,0,0};
 
 UBYTE dataSetSnap[28];
 UBYTE dataSet[28] = 

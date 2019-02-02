@@ -1,5 +1,13 @@
 #include "gb/gb.h"
 #include "mGB.h"
+#include "rand.h"
+//#include "gb/font.h"
+#include <stdio.h>
+#include <gb/drawing.h>
+#include <gb/font.h>
+#include <gb/console.h>
+//#include <stdarg.h>
+//#include "printf.c"
 
 void printbyte(UBYTE v1, UBYTE v2, UBYTE v3)
 {
@@ -41,21 +49,89 @@ void setSoundDefaults()
 
   NR44_REG = 0x80U;
   NR41_REG = 0x3FU; //sound length
+  
 }
 
 void testSynths()
-{
-	addressByte = 0x40;
-	valueByte = 0x7F;
-	noteStatus[1] = 0x40;
-	currentFreqData[0] = freq[0x40];
+{	
+	newNote = addressByte;
+
+	// Save the previous note if there was one
+	prevNoteTmp = noteStatus[PU1_CURRENT_NOTE] + 0x24U;
+
+	if (prevNoteTmp == 0x00U){
+		//printf("pre");
+		prevNoteTmp = 0x24U;
+	}
+	//printf("read%d ",prevNoteTmp);
+	prevNote[0] = prevNoteTmp;
+
+	// The new note
+	//printf("n%d ",newNote);
+	newNote += 0x08U;
+	//printf("n%d ",newNote);
+	valueByte = 0xFFU;
+	//printf("a");
+	//printf("%d %d",prevNote[0],newNote);
+
+	//printf("read%d ",prevNoteTmp > newNote);	
+    if (prevNoteTmp > newNote){
+		//printf("a");
+		tmp1 = prevNoteTmp;
+		
+		tmp1 -= 0x24U;
+		delay(0);
+		tmp1Freq = freq[tmp1];
+		tmp2 = newNote;
+		//printf("a%d %d",tmp1,tmp2);
+		// delay(5000);
+		 tmp2 -= 0x24U;
+		 //printf("ay%d ",tmp2);
+		 tmp2Freq = freq[tmp2];
+		 //newStepSize = 0x01U;
+    	 newStepSize = tmp1Freq;
+		 newStepSize -= tmp2Freq;
+		 newStepSize /= 0x8FU;
+        //portStepSize[0] -= tmp2Freq;
+		//portStepSize[0] /= 0xF;
+	}
+	else if (prevNoteTmp < newNote){
+		//printf("b");
+		tmp1 = prevNoteTmp;
+		//printf("bt%d ",tmp1);
+		tmp1 -= 0x24U;
+		tmp1Freq = freq[tmp1];
+		tmp2 = newNote;
+		// printf("b%d %d",tmp1,tmp2);
+		// delay(5000);
+		tmp2 -= 0x24U;
+		//printf("by%d ",tmp2);
+		tmp2Freq = freq[tmp2];
+		//newStepSize = 0x01U;
+    	newStepSize = tmp2Freq;
+        newStepSize -= tmp1Freq;
+		newStepSize /= 0x8FU;
+        //portStepSize[0] -= tmp1Freq;
+		//portStepSize[0] /= 2;
+	}
+	if (newStepSize == 0x00U) {
+		newStepSize = 0x01U;
+		//printf("rs");
+	}
+	//printf("c");
+	portDelay[0] = 0;
+	portStepSize[0] = newStepSize;
+	noteStatus[PU1_CURRENT_NOTE] = newNote;	
+	addressByte = newNote;
 	asmPlayNotePu1();
-	cursorEnable[0] = 1;
+	cursorEnable[0] = 1;	
 }
 
 
 void main()
 {
+	font_init();
+	addressByte = 0x25U;
     disable_interrupts();
 	  cpu_fast();
 		checkMemory();
@@ -89,3 +165,4 @@ void main()
 	asmMain();
 	//testSynths();
 }
+
