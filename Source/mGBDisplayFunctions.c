@@ -179,7 +179,7 @@ void setPlayMarker()
 	}
 }
 
-void cls()
+void cls2()
 {
 	for(j=0;j!=20;j++) bkg[j]= 0x00U;
 	for(j=0;j!=18;j++) {
@@ -190,13 +190,13 @@ void cls()
 void showSampleScreen()
 {
 	hideCursor();
-	cls();
+	cls2();
 	currentScreen = 1;
 }
 
 void showMainScreen()
 { 
-	cls();
+	cls2();
 	currentScreen = 1;
 	bkg[0]=66;set_bkg_tiles(3,3 + GLOBAL_POSITION_YOFFSET,1,1,bkg);
 	bkg[0]=67;set_bkg_tiles(7,3 + GLOBAL_POSITION_YOFFSET,1,1,bkg);
@@ -215,7 +215,7 @@ void showMainScreen()
 void showSplashScreen()
 {
     hideCursor();
-	cls();
+	cls2();
 	set_bkg_tiles(6,7,8,2,logo);
 }
 
