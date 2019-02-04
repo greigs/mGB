@@ -1,0 +1,7 @@
+MidiToMGBA 1.1.0.0
+
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MonoMod.RuntimeDetour.DetourNativeX86Platform.Copy(IntPtr src, IntPtr dst, Int32 size) in D:\Repos\MidiToBGB\MonoMod\MonoMod.RuntimeDetour\DetourNativePlatforms.cs:line 71
+   at MonoMod.RuntimeDetour.NativeDetour..ctor(MethodBase method, IntPtr from, IntPtr to) in D:\Repos\MidiToBGB\MonoMod\MonoMod.RuntimeDetour\NativeDetour.cs:line 59
+   at MidiToMGBA.MGBALink..ctor() in D:\Repos\MidiToBGB\src\MGBALink.cs:line 39
+   at MidiToMGBA.Program.Main(String[] args) in D:\Repos\MidiToBGB\src\Program.cs:line 98
