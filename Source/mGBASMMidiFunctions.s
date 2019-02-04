@@ -91,7 +91,8 @@ _asmEventMidiNote$::
 	ld	A,B
 	AND	#0x0F
 	cp	#0x00
-		jp z,_asmPlayNotePu1;
+		;jp z,_asmPlayNotePu1;
+		jp z,_asmGlideTo$;
 	cp	#0x01
 		jp z,_asmPlayNotePu2$;
 	cp	#0x02

@@ -967,3 +967,283 @@ _asmPlayNotePolyPu2$::
 	jp	_asmPlayNotePu2$;
 pop bc
 ret
+
+_asmGlideToC::
+	jp	_asmGlideTo$;
+pop bc
+ret
+
+;mgb.c:55: void glideTo(){
+;	---------------------------------
+; Function asmGlideTo
+; ---------------------------------
+_asmGlideTo$::
+;mgb.c:56: if (newNote == 0x00U){
+	ld	hl,#_newNote
+	ld	a,(hl)
+	;ld	a,#0x24; extra
+	or	a, a
+	jr	NZ,00202$
+;mgb.c:57: newNote = addressByte;
+	push	hl
+	ld	hl,#_addressByte
+	ld	a,(hl)
+	;ld	a,#0x24; extra
+	ld	hl,#_newNote
+	ld	(hl),a
+	pop	hl
+00202$:
+;mgb.c:61: prevNoteTmp = noteStatus[PU1_CURRENT_NOTE] + 0x24U;
+	ld	a, (#(_noteStatus + 0x0001) + 0)
+	add	a, #0x24
+	ld	hl,#_prevNoteTmp
+	ld	(hl),a
+;mgb.c:63: if (prevNoteTmp == 0x00U){
+	ld	a,(hl)
+	or	a, a
+	jr	NZ,00204$
+;mgb.c:65: prevNoteTmp = 0x24U;
+	ld	(hl),#0x24
+00204$:
+;mgb.c:68: prevNote[0] = prevNoteTmp;
+	ld	de,#_prevNote+0
+	ld	hl,#_prevNoteTmp
+	ld	a,(hl)
+	ld	(de),a
+;mgb.c:73: valueByte = 0xFFU;
+	ld	hl,#_valueByte
+	ld	(hl),#0xFF
+;mgb.c:80: tmp1 = prevNoteTmp;
+	ld	hl,#_prevNoteTmp
+	ld	b,(hl)
+;mgb.c:78: if (prevNoteTmp > newNote){
+	ld	hl,#_newNote
+	ld	a,(hl)
+	ld	hl,#_prevNoteTmp
+	sub	a, (hl)
+	jp	NC,00208$
+;mgb.c:80: tmp1 = prevNoteTmp;
+	ld	hl,#_tmp1
+	ld	(hl),b
+;mgb.c:82: tmp1 -= 0x24U;
+	ld	a,(hl)
+	add	a,#0xDC
+	ld	(hl),a
+;mgb.c:83: delay(0);
+	; ld	hl,#0x0000
+	; push	hl
+	; call	_delay
+	; add	sp, #2
+;mgb.c:84: tmp1Freq = freq[tmp1];
+	ld	hl,#_tmp1
+	ld	c,(hl)
+	ld	b,#0x00
+	sla	c
+	rl	b
+	ld	hl,#_freq
+	add	hl,bc
+	ld	c,l
+	ld	b,h
+	ld	e, c
+	ld	d, b
+	ld	a,(de)
+	ld	hl,#_tmp1Freq
+	ld	(hl+),a
+	inc	de
+	ld	a,(de)
+	ld	(hl),a
+;mgb.c:85: tmp2 = newNote;
+	push	hl
+	ld	hl,#_newNote
+	ld	a,(hl)
+	ld	hl,#_tmp2
+	ld	(hl),a
+	pop	hl
+;mgb.c:88: tmp2 -= 0x24U;
+	ld	hl,#_tmp2
+	ld	a,(hl)
+	add	a,#0xDC
+	ld	(hl),a
+;mgb.c:90: tmp2Freq = freq[tmp2];
+	ld	c,(hl)
+	ld	b,#0x00
+	sla	c
+	rl	b
+	ld	hl,#_freq
+	add	hl,bc
+	ld	c,l
+	ld	b,h
+	ld	e, c
+	ld	d, b
+	ld	a,(de)
+	ld	hl,#_tmp2Freq
+	ld	(hl+),a
+	inc	de
+	ld	a,(de)
+	ld	(hl),a
+;mgb.c:92: newStepSize = tmp1Freq;
+	ld	hl,#_tmp1Freq
+	ld	a,(hl+)
+	ld	e, (hl)
+	ld	hl,#_newStepSize
+	ld	(hl+),a
+	ld	(hl),e
+;mgb.c:93: newStepSize -= tmp2Freq;
+	dec	hl
+	ld	a,(hl)
+	ld	hl,#_tmp2Freq
+	sub	a, (hl)
+	ld	hl,#_newStepSize
+	ld	(hl+),a
+	ld	a,(hl)
+	ld	hl,#_tmp2Freq + 1
+	sbc	a, (hl)
+	ld	hl,#_newStepSize + 1
+	ld	(hl),a
+;mgb.c:94: newStepSize /= 0x8FU;
+	ld	hl,#0x008F
+	push	hl
+	ld	hl,#_newStepSize
+	ld	a,(hl+)
+	ld	h,(hl)
+	ld	l,a
+	push	hl
+	call	__divuint
+	add	sp, #4
+	ld	hl,#_newStepSize
+	ld	(hl),e
+	inc	hl
+	ld	(hl),d
+	jp	00209$
+00208$:
+;mgb.c:98: else if (prevNoteTmp < newNote){
+	ld	hl,#_prevNoteTmp
+	ld	a,(hl)
+	ld	hl,#_newNote
+	sub	a, (hl)
+	jp	NC,00209$
+;mgb.c:100: tmp1 = prevNoteTmp;
+	ld	hl,#_tmp1
+	ld	(hl),b
+;mgb.c:102: tmp1 -= 0x24U;
+	ld	a,(hl)
+	add	a,#0xDC
+	ld	(hl),a
+;mgb.c:103: tmp1Freq = freq[tmp1];
+	ld	c,(hl)
+	ld	b,#0x00
+	sla	c
+	rl	b
+	ld	hl,#_freq
+	add	hl,bc
+	ld	c,l
+	ld	b,h
+	ld	e, c
+	ld	d, b
+	ld	a,(de)
+	ld	hl,#_tmp1Freq
+	ld	(hl+),a
+	inc	de
+	ld	a,(de)
+	ld	(hl),a
+;mgb.c:104: tmp2 = newNote;
+	push	hl
+	ld	hl,#_newNote
+	ld	a,(hl)
+	ld	hl,#_tmp2
+	ld	(hl),a
+	pop	hl
+;mgb.c:107: tmp2 -= 0x24U;
+	ld	hl,#_tmp2
+	ld	a,(hl)
+	add	a,#0xDC
+	ld	(hl),a
+;mgb.c:109: tmp2Freq = freq[tmp2];
+	ld	c,(hl)
+	ld	b,#0x00
+	sla	c
+	rl	b
+	ld	hl,#_freq
+	add	hl,bc
+	ld	c,l
+	ld	b,h
+	ld	e, c
+	ld	d, b
+	ld	a,(de)
+	ld	hl,#_tmp2Freq
+	ld	(hl+),a
+	inc	de
+	ld	a,(de)
+;mgb.c:111: newStepSize = tmp2Freq;
+	ld	(hl-),a
+	ld	a,(hl+)
+	ld	e, (hl)
+	ld	hl,#_newStepSize
+	ld	(hl+),a
+	ld	(hl),e
+;mgb.c:112: newStepSize -= tmp1Freq;
+	dec	hl
+	ld	a,(hl)
+	ld	hl,#_tmp1Freq
+	sub	a, (hl)
+	ld	hl,#_newStepSize
+	ld	(hl+),a
+	ld	a,(hl)
+	ld	hl,#_tmp1Freq + 1
+	sbc	a, (hl)
+	ld	hl,#_newStepSize + 1
+	ld	(hl),a
+;mgb.c:113: newStepSize /= 0x8FU;
+	ld	hl,#0x008F
+	push	hl
+	ld	hl,#_newStepSize
+	ld	a,(hl+)
+	ld	h,(hl)
+	ld	l,a
+	push	hl
+	call	__divuint
+	add	sp, #4
+	ld	hl,#_newStepSize
+	ld	(hl),e
+	inc	hl
+	ld	(hl),d
+00209$:
+;mgb.c:117: if (newStepSize == 0x00U) {
+	ld	hl,#_newStepSize + 1
+	ld	a,(hl-)
+	or	a,(hl)
+	jr	NZ,00211$
+;mgb.c:118: newStepSize = 0x01U;
+	ld	(hl),#0x01
+	inc	hl
+	ld	(hl),#0x00
+00211$:
+;mgb.c:122: portDelay[0] = 0;
+	ld	de,#_portDelay+0
+	xor	a, a
+	ld	(de),a
+;mgb.c:123: portStepSize[0] = newStepSize;
+	ld	de,#_portStepSize+0
+	ld	hl,#_newStepSize
+	ld	a,(hl)
+	ld	(de),a
+	inc	de
+	inc	hl
+	ld	a,(hl)
+	ld	(de),a
+;mgb.c:124: noteStatus[PU1_CURRENT_NOTE] = newNote;	
+	ld	de,#(_noteStatus + 0x0001)
+	ld	hl,#_newNote
+	ld	a,(hl)
+	ld	(de),a
+;mgb.c:125: addressByte = newNote;
+	push	hl
+	ld	a,(hl)
+	ld	hl,#_addressByte
+	; ld	a,#0x24; extra
+	ld	(hl),a
+	pop	hl
+;mgb.c:126: asmPlayNotePu1();
+	call	_asmPlayNotePu1;
+pop bc
+ret
