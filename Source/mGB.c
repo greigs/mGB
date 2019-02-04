@@ -1,11 +1,12 @@
 #include "gb/gb.h"
+#include "gb/cgb.h"
 #include "mGB.h"
-#include "rand.h"
+//#include "rand.h"
 //#include "gb/font.h"
-#include <stdio.h>
-#include <gb/drawing.h>
-#include <gb/font.h>
-#include <gb/console.h>
+//#include <stdio.h>
+//#include <gb/drawing.h>
+//#include <gb/font.h>
+//#include <gb/console.h>
 //#include <stdarg.h>
 //#include "printf.c"
 
@@ -52,10 +53,11 @@ void setSoundDefaults()
   
 }
 
-void testSynths()
-{	
-	newNote = addressByte;
-
+void glideTo(){
+	if (newNote == 0x00U){
+		newNote = addressByte;
+	}
+	
 	// Save the previous note if there was one
 	prevNoteTmp = noteStatus[PU1_CURRENT_NOTE] + 0x24U;
 
@@ -68,7 +70,6 @@ void testSynths()
 
 	// The new note
 	//printf("n%d ",newNote);
-	newNote += 0x08U;
 	//printf("n%d ",newNote);
 	valueByte = 0xFFU;
 	//printf("a");
@@ -124,14 +125,24 @@ void testSynths()
 	noteStatus[PU1_CURRENT_NOTE] = newNote;	
 	addressByte = newNote;
 	asmPlayNotePu1();
+	
 	cursorEnable[0] = 1;	
+}
+
+void testSynths()
+{	
+	
+	newNote += 0x08U;
+	asmGlideToC();
+	
 }
 
 
 void main()
 {
-	font_init();
+	//font_init();
 	addressByte = 0x25U;
+	newNote = addressByte;
     disable_interrupts();
 	  cpu_fast();
 		checkMemory();
@@ -157,7 +168,7 @@ void main()
 	SHOW_BKG;
 	SHOW_SPRITES;
 
-	//showSplashScreen();
+	showSplashScreen();
 	//delay(500);
 
 	showMainScreen();
