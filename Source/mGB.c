@@ -71,7 +71,7 @@ void glideTo(){
 	// The new note
 	//printf("n%d ",newNote);
 	//printf("n%d ",newNote);
-	valueByte = 0xFFU;
+	//valueByte = 0xFFU;
 	//printf("a");
 	//printf("%d %d",prevNote[0],newNote);
 
@@ -101,6 +101,7 @@ void glideTo(){
 		tmp1 = prevNoteTmp;
 		//printf("bt%d ",tmp1);
 		tmp1 -= 0x24U;
+		//delay(0);
 		tmp1Freq = freq[tmp1];
 		tmp2 = newNote;
 		// printf("b%d %d",tmp1,tmp2);
@@ -124,6 +125,10 @@ void glideTo(){
 	portStepSize[0] = newStepSize;
 	noteStatus[PU1_CURRENT_NOTE] = newNote;	
 	addressByte = newNote;
+
+	// TODO: remove these
+	//addressByte = 0x35U;
+	valueByte = 0xFFU;
 	asmPlayNotePu1();
 	
 	cursorEnable[0] = 1;	
@@ -133,7 +138,9 @@ void testSynths()
 {	
 	
 	newNote += 0x08U;
-	asmGlideToC();
+	glideTo();
+	cursorEnable[0] = 1;	
+	return;
 	
 }
 

@@ -29,7 +29,7 @@ void asmUpdatePu2();
 void asmUpdateWav();
 void asmUpdateNoi();
 void asmPlayNotePu1();
-void asmGlideToC();
+void glideTo();
 
 void testSynths();
 

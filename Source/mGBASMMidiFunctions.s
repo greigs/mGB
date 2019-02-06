@@ -83,7 +83,7 @@ ret
 _asmEventMidiNoteOff$::
 	ld	hl,#_valueByte
 	ld	(hl),#0x00
-	jr _asmEventMidiNote$
+	jr	_asmEventMidiNote$
 pop	bc
 ret
 
@@ -92,7 +92,7 @@ _asmEventMidiNote$::
 	AND	#0x0F
 	cp	#0x00
 		;jp z,_asmPlayNotePu1;
-		jp z,_asmGlideTo$;
+		jp z, _asmGlideTo;
 	cp	#0x01
 		jp z,_asmPlayNotePu2$;
 	cp	#0x02
