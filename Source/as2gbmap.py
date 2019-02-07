@@ -79,15 +79,15 @@ def main():
                 m = re.match(r"^([^ .]+) +([0-9A-Fa-f]{8}) +([0-9A-Fa-f]{8}) += +\d+\. +\w+ +\(([^\)]+)\)$", line)
                 if m:
                     if area:
-                        if m.group(1) != area['area']:
+                        if 'globals' != area['area']:
                             areas.append(area)
-                            area = {'area': m.group(1), 'radix': radix, 'base': int(m.group(2), 16), 'size': int(m.group(3), 16), 'attrib': m.group(4).replace(',', ' '), 'globals': []}
+                            area = {'area': 'globals', 'radix': radix, 'base': int(m.group(2), 16), 'size': int(m.group(3), 16), 'attrib': m.group(4).replace(',', ' '), 'globals': []}
                     else:
-                        area = {'area': m.group(1), 'radix': radix, 'base': int(m.group(2), 16), 'size': int(m.group(3), 16), 'attrib': m.group(4).replace(',', ' '), 'globals': []}
+                        area = {'area': 'globals', 'radix': radix, 'base': int(m.group(2), 16), 'size': int(m.group(3), 16), 'attrib': m.group(4).replace(',', ' '), 'globals': []}
                     state = 'IN_AREA'
             continue
 
-        m = re.match(r"^ +([0-9A-Fa-f]{8}) +([^ ]+) +$", line)
+        m = re.match(r"^ +([0-9A-Fa-f]{8}) +([^ ]+) +([a-z ]+)$", line)
         if state == 'IN_AREA' and m:
             area['globals'].append({'value': int(m.group(1), 16), 'global': m.group(2)})
             continue
