@@ -37,12 +37,12 @@ void testSynths();
 #define GLOBAL_POSITION_YOFFSET -1
 #define GLOBAL_POSITION_YOFFSET_BYTE 4
 
-#define PU1 0
-#define PU2 1
-#define WAV 2
-#define NOI 3
+#define PU1 0x00U
+#define PU2 0x01U
+#define WAV 0x02U
+#define NOI 0x03U
 
-#define PU1_CURRENT_STATUS 0
+#define PU1_CURRENT_STATUS 0x00U
 #define PU1_CURRENT_NOTE   0x01U
 #define PU2_CURRENT_STATUS 2
 #define PU2_CURRENT_NOTE   3
@@ -509,6 +509,9 @@ UWORD portStepSize[4] = {1,1,1,1};
 UWORD portLength[4] = {0x08U,0x08U,0x08U,0x08U};
 BOOLEAN portEnabled[4] = {1,0,0,0};
 UINT8 portDelay[4] = {0,0,0,0};
+
+UWORD targetFreq; 
+UWORD stepSize;
 
 UBYTE dataSetSnap[28];
 UBYTE dataSet[28] = 

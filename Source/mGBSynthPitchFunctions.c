@@ -52,31 +52,32 @@ void setPitchBendFrequencyOffsetNoise()
 }
 
 void addPortamento(UBYTE synth){
-	if (portEnabled[synth]){
-		UWORD targetFreq = freq[noteStatus[(synth<<1)+0x01]];
-		UWORD stepSize = portStepSize[synth];
-		currentFreq = currentPortFreqData[synth];
-		
-		portDelay[synth]++;
+	targetFreq = freq[noteStatus[(synth<<1)+0x01]];
+	stepSize = portStepSize[synth];
+	currentFreq = currentPortFreqData[synth];
+	
+	portDelay[synth]++;
 
-		if (portDelay[synth] == 1 && currentFreq != targetFreq ){
-			// compute the step that we need to add or subtract this time around
-			portDelay[synth] = 0;
+	if (portDelay[synth] == 1 && currentFreq != targetFreq ){
+		portDelay[synth] = 0;
 
-			if (currentFreq < targetFreq){
-				currentFreq += stepSize;
-				NR14_REG = (currentFreq>>8U);
-				NR13_REG = currentFreq;
-				currentPortFreqData[synth] = currentFreq;
+		if (currentFreq < targetFreq){
+			if (targetFreq - currentFreq < stepSize){
+					stepSize = targetFreq - currentFreq;
 			}
-			else if (currentFreq > targetFreq){
-				currentFreq -= stepSize;
-				NR14_REG = (currentFreq>>8U);
-				NR13_REG = currentFreq;
-				currentPortFreqData[synth] = currentFreq;		
+			currentFreq += stepSize;
+			NR14_REG = (currentFreq>>8U);
+			NR13_REG = currentFreq;
+			currentPortFreqData[synth] = currentFreq;
+		}
+		else if (currentFreq > targetFreq){
+			if (currentFreq - targetFreq < stepSize){
+					stepSize = currentFreq - targetFreq;
 			}
-
-			//portPosition[synth]++;
+			currentFreq -= stepSize;
+			NR14_REG = (currentFreq>>8U);
+			NR13_REG = currentFreq;
+			currentPortFreqData[synth] = currentFreq;		
 		}
 	}
 }

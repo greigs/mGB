@@ -53,89 +53,78 @@ void setSoundDefaults()
   
 }
 
+
+void noOp(){
+ // intentionally does nothing
+}
+
 void glideTo(){
-	if (newNote == 0x00U){
-		newNote = addressByte;
-	}
-	
-	// Save the previous note if there was one
-	prevNoteTmp = noteStatus[PU1_CURRENT_NOTE] + 0x24U;
+	if (valueByte != 0x00U)
+	{
+		if (newNote == 0x00U){
+			newNote = addressByte;
+		}
+		
+		// Save the previous note if there was one
+		prevNoteTmp = noteStatus[PU1_CURRENT_NOTE] + 0x24U;
 
-	if (prevNoteTmp == 0x00U){
-		//printf("pre");
-		prevNoteTmp = 0x24U;
-	}
-	//printf("read%d ",prevNoteTmp);
-	prevNote[0] = prevNoteTmp;
+		if (prevNoteTmp == 0x00U){
+			prevNoteTmp = 0x24U;
+		}
+		prevNote[PU1] = prevNoteTmp;
 
-	// The new note
-	//printf("n%d ",newNote);
-	//printf("n%d ",newNote);
-	//valueByte = 0xFFU;
-	//printf("a");
-	//printf("%d %d",prevNote[0],newNote);
+		if (prevNoteTmp > newNote){
+			// Why is this needed? It does nothing?
+			// Without a call to *something* within this block, the compiler tries to
+			// optimise the stack pointer, but causes a giant mess instead (it crashes).
+			// This could probably be fixed by messing with the stack some more,
+			// but this is an easier hack for now.
+			// Yeah, GBDK kinda sucks. At least I'm blaming *it* for the time being.
+			noOp();
 
-	//printf("read%d ",prevNoteTmp > newNote);	
-    if (prevNoteTmp > newNote){
-		//printf("a");
-		// why needed?
-		noOp();
-		tmp1 = prevNoteTmp;
-		tmp1 -= 0x24U;
+			tmp1 = prevNoteTmp;
+			tmp1 -= 0x24U;
+			tmp1Freq = freq[tmp1];
+			tmp2 = newNote;
+			tmp2 -= 0x24U;
+			tmp2Freq = freq[tmp2];
+			newStepSize = tmp1Freq;
+			newStepSize -= tmp2Freq;
+			newStepSize /= 0x6FU;
+		}
+		if (prevNoteTmp < newNote){
+			tmp1 = prevNoteTmp;
+			tmp1 -= 0x24U;
+			tmp1Freq = freq[tmp1];
+			tmp2 = newNote;
+			tmp2 -= 0x24U;
+			tmp2Freq = freq[tmp2];
+			newStepSize = tmp2Freq;
+			newStepSize -= tmp1Freq;
+			newStepSize /= 0x6FU;
+		}
+		if (newStepSize == 0x00U) {
+			newStepSize = 0x01U;
+		}
 
-		tmp1Freq = freq[tmp1];
-		tmp2 = newNote;
-		tmp2 -= 0x24U;
-		tmp2Freq = freq[tmp2];
-    	newStepSize = tmp1Freq;
-		newStepSize -= tmp2Freq;
-		newStepSize /= 0x4FU;
+		portDelay[PU1] = 0;
+		portStepSize[PU1] = newStepSize;
+		noteStatus[PU1_CURRENT_NOTE] = newNote;	
+		addressByte = newNote;
 	}
-	if (prevNoteTmp < newNote){
-		tmp1 = prevNoteTmp;
-		tmp1 -= 0x24U;
-		//delay(2);
-		tmp1Freq = freq[tmp1];
-		tmp2 = newNote;
-		tmp2 -= 0x24U;
-		tmp2Freq = freq[tmp2];
-		newStepSize = tmp2Freq;
-		newStepSize -= tmp1Freq;
-		newStepSize /= 0x4FU;
-	}
-	if (newStepSize == 0x00U) {
-		newStepSize = 0x01U;
-		//printf("rs");
-	}
-	//newStepSize = 0x01U;
-	//printf("c");
-	portDelay[0] = 0;
-	portStepSize[0] = newStepSize;
-	noteStatus[PU1_CURRENT_NOTE] = newNote;	
-	addressByte = newNote;
-
-	// TODO: remove these
-	//addressByte = 0x35U;
-	valueByte = 0xFFU;
 	asmPlayNotePu1();
 	
-	cursorEnable[0] = 1;	
+	// same reason as above
+	noOp();
+	//cursorEnable[0] = 1;	
 }
 
 void testSynths()
 {	
-	
 	newNote += 0x08U;
 	glideTo();
 	cursorEnable[0] = 1;	
-	return;
-	
 }
-
-void noOp(){
-
-}
-
 
 void main()
 {
