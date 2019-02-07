@@ -43,7 +43,7 @@ void testSynths();
 #define NOI 3
 
 #define PU1_CURRENT_STATUS 0
-#define PU1_CURRENT_NOTE   1
+#define PU1_CURRENT_NOTE   0x01U
 #define PU2_CURRENT_STATUS 2
 #define PU2_CURRENT_NOTE   3
 #define WAV_CURRENT_STATUS 4
@@ -73,9 +73,9 @@ UWORD freq[72] = {
   1985, 1988, 1992, 1995, 1998, 2001, 2004, 2006, 2009, 2011, 2013, 2015
 };
 
-UBYTE noteStatus[8];
+UBYTE noteStatus[8] = {0,0,0,0,0,0,0,0};
 UBYTE prevNote[4] = {0,0,0,0};
-UBYTE prevNoteTmp;
+UBYTE prevNoteTmp = 0x00U;
 
 UBYTE noiFreq[72] = { 
 0x94,0x87,0x86,0x85,0x84,0x77,0x76,0x75,0x74,0x67,0x66,0x65,
