@@ -78,48 +78,36 @@ void glideTo(){
 	//printf("read%d ",prevNoteTmp > newNote);	
     if (prevNoteTmp > newNote){
 		//printf("a");
+		// why needed?
+		noOp();
 		tmp1 = prevNoteTmp;
-		
 		tmp1 -= 0x24U;
-		delay(0);
+
 		tmp1Freq = freq[tmp1];
 		tmp2 = newNote;
-		//printf("a%d %d",tmp1,tmp2);
-		// delay(5000);
-		 tmp2 -= 0x24U;
-		 //printf("ay%d ",tmp2);
-		 tmp2Freq = freq[tmp2];
-		 //newStepSize = 0x01U;
-    	 newStepSize = tmp1Freq;
-		 newStepSize -= tmp2Freq;
-		 newStepSize /= 0x8FU;
-        //portStepSize[0] -= tmp2Freq;
-		//portStepSize[0] /= 0xF;
-	}
-	else if (prevNoteTmp < newNote){
-		//printf("b");
-		tmp1 = prevNoteTmp;
-		//printf("bt%d ",tmp1);
-		tmp1 -= 0x24U;
-		//delay(0);
-		tmp1Freq = freq[tmp1];
-		tmp2 = newNote;
-		// printf("b%d %d",tmp1,tmp2);
-		// delay(5000);
 		tmp2 -= 0x24U;
-		//printf("by%d ",tmp2);
 		tmp2Freq = freq[tmp2];
-		//newStepSize = 0x01U;
-    	newStepSize = tmp2Freq;
-        newStepSize -= tmp1Freq;
-		newStepSize /= 0x8FU;
-        //portStepSize[0] -= tmp1Freq;
-		//portStepSize[0] /= 2;
+    	newStepSize = tmp1Freq;
+		newStepSize -= tmp2Freq;
+		newStepSize /= 0x4FU;
+	}
+	if (prevNoteTmp < newNote){
+		tmp1 = prevNoteTmp;
+		tmp1 -= 0x24U;
+		//delay(2);
+		tmp1Freq = freq[tmp1];
+		tmp2 = newNote;
+		tmp2 -= 0x24U;
+		tmp2Freq = freq[tmp2];
+		newStepSize = tmp2Freq;
+		newStepSize -= tmp1Freq;
+		newStepSize /= 0x4FU;
 	}
 	if (newStepSize == 0x00U) {
 		newStepSize = 0x01U;
 		//printf("rs");
 	}
+	//newStepSize = 0x01U;
 	//printf("c");
 	portDelay[0] = 0;
 	portStepSize[0] = newStepSize;
@@ -142,6 +130,10 @@ void testSynths()
 	cursorEnable[0] = 1;	
 	return;
 	
+}
+
+void noOp(){
+
 }
 
 

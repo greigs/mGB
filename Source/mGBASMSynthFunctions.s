@@ -380,13 +380,13 @@
 
 		cp #0x00
 		jr	nz,_asmPlayNotePu1OnSet$
-		jr	_asmPlayNotePu1Off$
+		jp	_asmPlayNotePu1Off$
 
 	_asmPlayNotePu1OnSet$::
 		ld	A, (#0xFF12)
 		cp #0x00
 		jp	_asmPlayNotePu1OnSetOn$
-		;jr	_asmPlayNotePu1OnSetOff$
+		jr	_asmPlayNotePu1OnSetOff$
 	_asmPlayNotePu1OnSetOn$::
 		ld	A, #0x80
 		ld	hl, #_pu1Trig
