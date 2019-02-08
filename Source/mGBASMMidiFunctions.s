@@ -272,15 +272,17 @@ _asmEventMidiCCPu1$::
 	cp	#0x05
 		jp z,_asmPu1Lod$;
 	cp	#0x0A
-		jp z,_asmPu1Pan$;
+		jp z,_asmPu1Por$;_asmPu1Pan
 	cp	#0x0B
-		jp z,_asmPu1VD$;
+		jp z,_asmPu1Por$;_asmPu1VD
 	cp	#0x0C
-		jp z,_asmPu1VR$;
+		jp z,_asmPu1Por$;_asmPu1VR
 	cp	#0x0D ; CC11 -> Vibrato Depth
-		jp z,_asmPu1Vid$;
+		jp z,_asmPu1Por$;_asmPu1Vid
 	cp	#0x0E ; CC12 -> Vibrato Speed
-		jp z,_asmPu1Vis$;
+		jp z,_asmPu1Por$;_asmPu1Vis
+	cp	#0x0F ; CC13 -> Portamento Toggle
+		jp z,_asmPu1Por$;		
 	cp	#0x40
 		jp z,_asmPu1Sus$;
 	cp	#0x7B
@@ -476,6 +478,27 @@ _asmPu1Vis$::
 	
 	ld	de,#_vibratoSpeed + 0
     ld	(de),A
+pop	bc
+ret
+
+
+_asmPu1Por$::
+	ld	hl,#_valueByte
+	ld	A,(hl)
+	or A
+	jr nz, _asmPu1PorOn$
+	jr _asmPu1PorOff$
+_asmPu1PorOn$::
+	ld	A,#0x01
+	ld	hl,#_pu1Por
+    ld	(hl),A
+pop	bc
+ret
+
+_asmPu1PorOff$::
+	ld	A,#0x00
+	ld	hl,#_pu1Por
+    ld	(hl),A
 pop	bc
 ret
 
