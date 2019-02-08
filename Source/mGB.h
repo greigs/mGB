@@ -110,6 +110,8 @@ BOOLEAN pu2Sus;
 BOOLEAN noiSus;
 BOOLEAN wavSus;
 
+BOOLEAN pu1Por = 1;
+
 UBYTE outputSwitch[4] = {0x01,0x02,0x40,0x80};
 UBYTE outputSwitchMute[4] = {0x01,0x02,0x40,0x80};
 UBYTE outputSwitchValue[4] = {3,3,3,3};
@@ -507,7 +509,6 @@ BOOLEAN vibratoSlope[4] = {0,0,0,0};
 
 UWORD portStepSize[4] = {1,1,1,1};
 UWORD portLength[4] = {0x08U,0x08U,0x08U,0x08U};
-BOOLEAN portEnabled[4] = {1,0,0,0};
 UINT8 portDelay[4] = {0,0,0,0};
 
 UWORD targetFreq; 

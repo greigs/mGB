@@ -142,7 +142,7 @@ void updateSynth(UBYTE synth)
 void updateSynths()
 {
 	enable_interrupts();
-    if(portEnabled[PU1]) addPortamento(PU1);
+    if(pu1Por) addPortamento(PU1);
 
 	if(vibratoDepth[PU1]) updateVibratoPosition(PU1);
 	if(vibratoDepth[PU2]) updateVibratoPosition(PU2);
