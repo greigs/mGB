@@ -272,16 +272,16 @@ _asmEventMidiCCPu1$::
 	cp	#0x05
 		jp z,_asmPu1Lod$;
 	cp	#0x0A
-		jp z,_asmPu1Por$;_asmPu1Pan
+		jp z,_asmPu1Pan$;
 	cp	#0x0B
-		jp z,_asmPu1Por$;_asmPu1VD
+		jp z,_asmPu1VD$;
 	cp	#0x0C
-		jp z,_asmPu1Por$;_asmPu1VR
-	cp	#0x0D ; CC11 -> Vibrato Depth
-		jp z,_asmPu1Por$;_asmPu1Vid
-	cp	#0x0E ; CC12 -> Vibrato Speed
-		jp z,_asmPu1Por$;_asmPu1Vis
-	cp	#0x0F ; CC13 -> Portamento Toggle
+		jp z,_asmPu1VR$;
+	cp	#0x0D ; CC13 -> Vibrato Depth
+		jp z,_asmPu1Vid$;_asmPu1Vid
+	cp	#0x0E ; CC14 -> Vibrato Speed
+		jp z,_asmPu1Vis$;_asmPu1Vis
+	cp	#0x0F ; CC15 -> Portamento Toggle
 		jp z,_asmPu1Por$;		
 	cp	#0x40
 		jp z,_asmPu1Sus$;
@@ -567,9 +567,9 @@ _asmEventMidiCCPu2$::
 		jp z,_asmPu2VD$;
 	cp	#0x0C
 		jp z,_asmPu2VR$;
-	cp	#0x0D ; CC11 -> Vibrato Depth
+	cp	#0x0D ; CC13 -> Vibrato Depth
 		jp z,_asmPu2Vid$;
-	cp	#0x0E ; CC11 -> Vibrato Speed
+	cp	#0x0E ; CC14 -> Vibrato Speed
 		jp z,_asmPu2Vis$;		
 	cp	#0x40
 		jp z,_asmPu2Sus$;
@@ -817,9 +817,9 @@ _asmEventMidiCCWav$::
 		jp z,_asmWavVD$;
 	cp	#0x0C
 		jp z,_asmWavVR$;
-	cp	#0x0D ; CC11 -> Vibrato Depth
+	cp	#0x0D ; CC13 -> Vibrato Depth
 		jp z,_asmWavVid$;
-	cp	#0x0E ; CC12 -> Vibrato Speed
+	cp	#0x0E ; CC14 -> Vibrato Speed
 		jp z,_asmWavVis$;		
 	cp	#0x40
 		jp z,_asmWavSus$;
@@ -1086,9 +1086,9 @@ _asmEventMidiCCNoi$::
 		jp z,_asmNoiVD$;
 	cp	#0x0C
 		jp z,_asmNoiVR$;
-	cp	#0x0D ; CC11 -> Vibrato Depth
+	cp	#0x0D ; CC13 -> Vibrato Depth
 		jp z,_asmNoiVid$;
-	cp	#0x0E ; CC12 -> Vibrato Speed
+	cp	#0x0E ; CC14 -> Vibrato Speed
 		jp z,_asmNoiVis$;
 	cp	#0x40
 		jp z,_asmNoiSus$;
@@ -1294,9 +1294,9 @@ _asmEventMidiCCPoly$::
 		jr z,_asmPolyLod$;
 	cp	#0x0A
 		jr z,_asmPolyPan$;
-	cp	#0x0D ; CC11 -> Vibrato Depth
+	cp	#0x0D ; CC13 -> Vibrato Depth
 		jp z,_asmPolyVid$;
-	cp	#0x0E ; CC12 -> Vibrato Speed
+	cp	#0x0E ; CC14 -> Vibrato Speed
 		jp z,_asmPolyVis$;		
 	cp	#0x40
 		jr z,_asmPolySus$;
