@@ -111,6 +111,7 @@ BOOLEAN noiSus;
 BOOLEAN wavSus;
 
 BOOLEAN pu1Por = 0;
+BOOLEAN pu1PorReset = 0;
 
 UBYTE outputSwitch[4] = {0x01,0x02,0x40,0x80};
 UBYTE outputSwitchMute[4] = {0x01,0x02,0x40,0x80};
