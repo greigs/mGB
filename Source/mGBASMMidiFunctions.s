@@ -499,6 +499,9 @@ _asmPu1PorOff$::
 	ld	A,#0x00
 	ld	hl,#_pu1Por
     ld	(hl),A
+	ld	hl,#_pu1PorReset
+	ld	A,#0x01
+    ld	(hl),A
 pop	bc
 ret
 

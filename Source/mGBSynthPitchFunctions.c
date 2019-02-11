@@ -82,6 +82,14 @@ void addPortamento(UBYTE synth){
 	}
 }
 
+void resetPort(UBYTE synth){
+	targetFreq = freq[noteStatus[(synth<<1)+0x01]];
+	NR14_REG = (currentFreq>>8U);
+	NR13_REG = currentFreq;	
+	currentPortFreqData[synth] = currentFreq;
+	pu1PorReset = 0x00;
+}
+
 void addVibrato(UBYTE synth){
 	if(vibratoDepth[synth]) {
 		currentFreq = currentFreqData[synth] + vibratoPosition[synth];
