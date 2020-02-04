@@ -1,5 +1,5 @@
 
-extern UBYTE saveData[513U];
+//extern UBYTE saveData[513U];
 //extern UBYTE wavData[512U];
 
 extern UBYTE serialBuffer[256];
