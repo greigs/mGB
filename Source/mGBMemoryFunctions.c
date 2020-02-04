@@ -1,3 +1,4 @@
+__at (0xA000) UBYTE saveData[513];
 
 void saveDataSet(UBYTE synth)
 {
